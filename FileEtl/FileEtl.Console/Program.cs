@@ -1,7 +1,8 @@
-﻿using FileEtl.Console.DataSources;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FileEtl.Console.DataSources;
+using Newtonsoft.Json;
 
 namespace FileEtl.Console
 {
@@ -52,6 +53,11 @@ namespace FileEtl.Console
             var trimmed = command.TrimStart("config".ToCharArray()).TrimStart(' ');
             var positionText = trimmed.Substring(0, trimmed.IndexOf(' '));
             var position = int.Parse(positionText);
+            var json = trimmed.Replace(positionText, "").Trim();
+            var step = factory.EtlSteps[position - 1];
+
+            Type configType = step.AnyType.GetType().GetGenericInterfaceTypeArguments(typeof(IConfigurable<>)).ElementAt(0);
+            var config = JsonConvert.DeserializeObject(json, configType);
         }
 
         private static void AddStep(string command)

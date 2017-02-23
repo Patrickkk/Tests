@@ -27,6 +27,11 @@ namespace FileEtl.Console
                 .GetGenericArguments();
         }
 
+        public static Type GetLastGenericInterfaceTypeArgument(this Type type, Type interfaceType)
+        {
+            return type.GetGenericInterfaceTypeArguments(interfaceType).Last();
+        }
+
         private static bool InterfaceIsImplementationOfGenericInterface(this Type type, Type interfaceType)
         {
             if (!type.IsInterface)
