@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Caliburn.PresentationFramework.Commands;
 using FileEtl.Console;
 
 namespace FileEtl.Designer
 {
     public class MainWindowViewModel
     {
-        public EtlProcessFactory Factory { get; set; }
+        public ObservableCollection<IEtlStep> EtlSteps { get; set; }
+
+        public void AppendEtlStep()
+        {
+        }
     }
 }
