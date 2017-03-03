@@ -14,8 +14,7 @@
             <ListBox ItemsSource="{Binding EtlSteps}">
                 <ListBox.ContextMenu>
                     <ContextMenu>
-
-                        <MenuItem Header="Insert Above" cal:Message.Attach="[Event Click] = [Action AppendEtlStepBelow($eventArgs)]" />
+                        <MenuItem Header="Insert Above" Command="{Binding Command}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" />
                         <MenuItem Header="Insert Below" />
                         <MenuItem Header="Insert At End" />
                         <MenuItem Header="Delete" />
