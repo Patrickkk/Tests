@@ -18,5 +18,10 @@ namespace FileEtl.Console.Transformers
                 throw new NotImplementedException();
             }
         }
+
+        public IEnumerable<FileInfo> Transform(IEnumerable<FileInfo> input)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

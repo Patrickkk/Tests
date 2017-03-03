@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileEtl.Designer"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <StackPanel Orientation="Horizontal">
@@ -12,7 +14,8 @@
             <ListBox ItemsSource="{Binding EtlSteps}">
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Insert Above" />
+
+                        <MenuItem Header="Insert Above" cal:Message.Attach="[Event Click] = [Action AppendEtlStepBelow($eventArgs)]" />
                         <MenuItem Header="Insert Below" />
                         <MenuItem Header="Insert At End" />
                         <MenuItem Header="Delete" />
