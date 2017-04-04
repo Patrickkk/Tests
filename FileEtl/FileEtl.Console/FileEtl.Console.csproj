@@ -59,7 +59,7 @@
     <Compile Include="IConfiguration.cs" />
     <Compile Include="ICreator.cs" />
     <Compile Include="IDataSource.cs" />
-    <Compile Include="IDataSource{TInput,TOutput}.cs" />
+    <Compile Include="ILoader{TInput,TOutput}.cs" />
     <Compile Include="IDataSource{TOutput}.cs" />
     <Compile Include="IEtlStep.cs" />
     <Compile Include="ITransformer.cs" />

@@ -6,7 +6,31 @@
         xmlns:local="clr-namespace:FileEtl.Designer"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <StackPanel Orientation="Horizontal">
+
+        <StackPanel>
+            <Label>Steps</Label>
+            <ListBox>
+                <ListBoxItem>Step1</ListBoxItem>
+                <ListBoxItem>Step1</ListBoxItem>
+                <ListBoxItem>Step1</ListBoxItem>
+            </ListBox>
+        </StackPanel>
+        <StackPanel>
+            <Label>Available data types</Label>
+            <StackPanel>
+                <Label>Test</Label>
+                <Label>Test</Label>
+                <Label>Test</Label>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel>
+            <Label>Available steps</Label>
+            <StackPanel>
+                <Label>Test</Label>
+                <Label>Test</Label>
+                <Label>Test</Label>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Window>

@@ -1,8 +1,18 @@
 ﻿namespace FileEtl.Console
 {
-    public interface ITransformer<TInput, TOuput> : ITransformer
+    /// <summary>
+    /// Transforms the given Input to the given output type
+    /// </summary>
+    /// <typeparam name="TInputToTranform"></typeparam>
+    /// <typeparam name="TTransformedOuput"></typeparam>
+    public interface ITransformer<TInputToTranform, TTransformedOuput> : ITransformer
     {
-        TOuput Transform(TInput input);
+        TTransformedOuput Transform(TInputToTranform input);
+    }
+
+    public interface ITransformer<TInput, TInputToTranform, TTransformedOuput> : ITransformer
+    {
+        TTransformedOuput Transform(TInput input, TInputToTranform inputTotransform);
     }
 
     public interface ITransformer : IEtlStep
