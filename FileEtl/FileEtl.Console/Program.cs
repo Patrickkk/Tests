@@ -9,7 +9,7 @@ namespace FileEtl.Console
 {
     internal class Program
     {
-        public static List<EtlStepconfiguration> EtlSteps = new List<EtlStepconfiguration>();
+        public static List<ConfiguredEtlStep> EtlSteps = new List<ConfiguredEtlStep>();
         private static Type[] etlStepTypes;
 
         private static void Main(string[] args)
@@ -37,7 +37,7 @@ namespace FileEtl.Console
         {
             foreach (var type in etlStepTypes)
             {
-                System.Console.WriteLine($"type: {type.Name} - {type.EtlStepMethod().ReturnType} {type.EtlStepMethod().Name}({string.Join(",", type.EtlStepMethod().GetParameters().Select(x => x.ParameterType.Name + " " + x.Name))})");
+                System.Console.WriteLine($"type: {type.Name} - {type.GetEtlStepRunMethod().ReturnType} {type.GetEtlStepRunMethod().Name}({string.Join(",", type.GetEtlStepRunMethod().GetParameters().Select(x => x.ParameterType.Name + " " + x.Name))})");
             }
         }
 
@@ -80,7 +80,7 @@ namespace FileEtl.Console
         {
             foreach (var step in EtlSteps)
             {
-                System.Console.WriteLine($"type: {step.StepType.Name} - {step.StepType.EtlStepMethod().ReturnType} {step.StepType.EtlStepMethod().Name}({string.Join(",", step.StepType.EtlStepMethod().GetParameters().Select(x => x.ParameterType.Name + " " + x.Name))})");
+                System.Console.WriteLine($"type: {step.StepType.Name} - {step.StepType.GetEtlStepRunMethod().ReturnType} {step.StepType.GetEtlStepRunMethod().Name}({string.Join(",", step.StepType.GetEtlStepRunMethod().GetParameters().Select(x => x.ParameterType.Name + " " + x.Name))})");
             }
         }
 
@@ -132,7 +132,7 @@ namespace FileEtl.Console
             {
                 position = int.Parse(parts[2]);
             }
-            EtlSteps.Insert(position, new EtlStepconfiguration { StepType = etlStepType, Config = new object() });
+            EtlSteps.Insert(position, new ConfiguredEtlStep { StepType = etlStepType, Config = new object() });
         }
 
         private static void WriteAvailableDataTypes()

@@ -42,8 +42,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=4.0.6.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.4.0.6\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=4.0.7.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.7\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,7 +67,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CsvFileReaderPipelineTests.cs" />
+    <Compile Include="FlatFileReaderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,17 +82,17 @@
       <Project>{662a91a7-3993-46f1-8873-1e1bec0b1fd6}</Project>
       <Name>FileEtl.Console</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FileEtl.Core\FileEtl.Core.csproj">
-      <Project>{CFE63FF5-7666-4819-A41A-AA16737E57D6}</Project>
-      <Name>FileEtl.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileEtl.FileReaders\FileEtl.FileReaders.csproj">
-      <Project>{6BFDFD19-00B2-478D-8E71-E6D6A761F58A}</Project>
-      <Name>FileEtl.FileReaders</Name>
+    <ProjectReference Include="..\FileEtl\FileEtl.csproj">
+      <Project>{b41bb415-b8ac-4768-bc7c-e4dd38084094}</Project>
+      <Name>FileEtl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EDILikeFlatFile.txt" />
+    <Content Include="SimpleFlatFile.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

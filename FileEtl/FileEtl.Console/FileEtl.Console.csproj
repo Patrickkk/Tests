@@ -58,13 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileEtl.Core\FileEtl.Core.csproj">
-      <Project>{cfe63ff5-7666-4819-a41a-aa16737e57d6}</Project>
-      <Name>FileEtl.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileEtl.FileReaders\FileEtl.FileReaders.csproj">
-      <Project>{6bfdfd19-00b2-478d-8e71-e6d6a761f58a}</Project>
-      <Name>FileEtl.FileReaders</Name>
+    <ProjectReference Include="..\FileEtl\FileEtl.csproj">
+      <Project>{b41bb415-b8ac-4768-bc7c-e4dd38084094}</Project>
+      <Name>FileEtl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
