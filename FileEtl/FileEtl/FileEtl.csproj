@@ -50,6 +50,7 @@
     <Compile Include="Core\ConfiguredEtlStep.cs" />
     <Compile Include="Core\EtlProcessFactory.cs" />
     <Compile Include="Core\EtlStepRunMethodAttribute.cs" />
+    <Compile Include="Core\EtlStepSignature.cs" />
     <Compile Include="Core\IConfigurableEtlStep.cs" />
     <Compile Include="Core\IEtlStep.cs" />
     <Compile Include="Core\IEtlStepExtensions.cs" />

@@ -23,5 +23,14 @@
             </ListBox>
             <Button x:Name="ÀppendEtlStep" Content="Append step" Command="{Binding AppendStepCommand}" />
         </StackPanel>
+        <StackPanel>
+            <Label>Available Steps</Label>
+            <TextBox></TextBox>
+            <ListBox ItemsSource="{Binding AvailableSteps}">
+            </ListBox>
+        </StackPanel>
+        <StackPanel>
+            <Label>Configuration</Label>
+        </StackPanel>
     </StackPanel>
 </Window>

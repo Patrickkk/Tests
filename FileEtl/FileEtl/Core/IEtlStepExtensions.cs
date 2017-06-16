@@ -13,14 +13,14 @@ namespace FileEtl.Core
                         .Where(type => type.GetInterfaces().Contains(typeof(IEtlStep)));
         }
 
-        public static Type[] GetEtlRunMethodInputTypes(this Type etlStepType)
+        public static IEnumerable<EtlStepSignature> SelectEtlStepSignature(this IEnumerable<Type> types)
         {
-            // TODO validate
-            return etlStepType
-                .GetEtlStepRunMethod()
-                .GetParameters()
-                .Select(x => x.ParameterType)
-                .ToArray();
+            return types.Select(ToEtlStepSignature);
+        }
+
+        public static EtlStepSignature ToEtlStepSignature(this Type etlStep)
+        {
+            return new EtlStepSignature { Type = etlStep };
         }
 
         public static MethodInfo GetEtlStepRunMethod(this Type etlStep)
