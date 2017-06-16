@@ -1,3 +1,0 @@
-﻿namespace FileEtl.Designer
-{
-}

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FileEtl.Core
 {
@@ -34,19 +33,18 @@ namespace FileEtl.Core
             var outputType = runMethod.ReturnType;
             var inputTypes = step.GetType().GetEtlRunMethodInputTypes();
             var parameters = GetParameters(inputTypes, Data);
-            var result = runMethod.Invoke(step, parameters);
+            var result = runMethod.Invoke(step, parameters.ToArray());
             Data.Add(result.GetType(), result);
         }
 
-        private static object[] GetParameters(Type[] inputTypes, Dictionary<Type, object> data)
+        private static List<object> GetParameters(IEnumerable<Type> inputTypes, Dictionary<Type, object> data)
         {
-            var parameterValues = new object[inputTypes.Length];
-            for (int i = 0; i < inputTypes.Count(); i++)
+            var parameterValues = new List<object>();
+            foreach (var type in inputTypes)
             {
-                var type = inputTypes[i];
                 if (data.ContainsKey(type))
                 {
-                    parameterValues[i] = data[type];
+                    parameterValues.Add(data[type]);
                 }
                 else
                 {

@@ -23,6 +23,11 @@ namespace FileEtl.Core
             return new EtlStepSignature { Type = etlStep };
         }
 
+        public static IEnumerable<Type> GetEtlRunMethodInputTypes(this Type etlStep)
+        {
+            return GetEtlStepRunMethod(etlStep).GetParameters().Select(x => x.ParameterType);
+        }
+
         public static MethodInfo GetEtlStepRunMethod(this Type etlStep)
         {
             var methods = etlStep.GetMethods()

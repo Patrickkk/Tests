@@ -25,9 +25,10 @@
         </StackPanel>
         <StackPanel>
             <Label>Available Steps</Label>
-            <TextBox></TextBox>
-            <ListBox ItemsSource="{Binding AvailableSteps}">
+            <TextBox x:Name="StepsFilter"></TextBox>
+            <ListBox x:Name="AvailableSteps">
             </ListBox>
+            <Button x:Name="AddStep">Add</Button>
         </StackPanel>
         <StackPanel>
             <Label>Configuration</Label>
