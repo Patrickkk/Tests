@@ -94,6 +94,9 @@
     <Content Include="EDILikeFlatFile.txt" />
     <Content Include="SimpleFlatFile.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FileReaders\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

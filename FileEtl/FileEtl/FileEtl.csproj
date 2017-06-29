@@ -69,6 +69,7 @@
     <Compile Include="FileReaders\DataTableSetup\IDataTableConfig.cs" />
     <Compile Include="FileReaders\FileInput\SinglefileLoaderStep.cs" />
     <Compile Include="FileReaders\FileInput\SinglefileLoaderStepConfig.cs" />
+    <Compile Include="FileReaders\FlatFile\FlatFileParser.cs" />
     <Compile Include="FileReaders\FlatFile\FlatFileReader.cs" />
     <Compile Include="FileReaders\FlatFile\FlatFileReaderConfiguration.cs" />
     <Compile Include="FileReaders\FlatFile\FlatFileReaderEtlStep.cs" />
