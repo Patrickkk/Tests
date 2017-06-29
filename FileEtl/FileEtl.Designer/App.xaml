@@ -1,6 +1,7 @@
 ﻿<Application x:Class="FileEtl.Designer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sfw="clr-namespace:SoftFluent.Windows;assembly=SoftFluent.Windows"
              xmlns:local="clr-namespace:FileEtl.Designer">
     <Application.Resources>
         <ResourceDictionary>

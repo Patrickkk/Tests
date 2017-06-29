@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:FileEtl.Designer"
         mc:Ignorable="d"
         Title="PreviewWindow" Height="300" Width="300">
-    <StackPanel>
-        <Label>Preview</Label>
+    <StackPanel Orientation="Horizontal">
+        <StackPanel >
+            <Label>Run-UntillStep</Label>
+            <TextBox></TextBox>
+        </StackPanel>
+        <StackPanel></StackPanel>
     </StackPanel>
 </Window>

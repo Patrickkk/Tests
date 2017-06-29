@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Text;
 using FileEtl.FileReaders.DataTableSetup;
+using SoftFluent.Windows;
 
 namespace FileEtl.FileReaders.Csv
 {
+    [PropertyGridOptions(EditorDataTemplateResourceKey = "ObjectEditor", ForcePropertyChanged = true)]
     public class CsvReaderConfiguration : IDataTableConfig
     {
         public Encoding Encoding { get; set; } = Encoding.UTF8;

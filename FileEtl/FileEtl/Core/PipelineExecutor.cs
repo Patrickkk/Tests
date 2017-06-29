@@ -8,13 +8,23 @@ namespace FileEtl.Core
     /// </summary>
     public class PipelineExecutor
     {
-        public static void RunPipeline(List<IEtlStep> steps)
+        public static void RunPipeline(List<IEtlStep> steps, params object[] inputForFirstStep)
         {
-            var data = new Dictionary<Type, object>();
+            Dictionary<Type, object> data = GetInitialData();
             foreach (var step in steps)
             {
                 StepWithInput(step, data);
             }
+        }
+
+        private static Dictionary<Type, object> GetInitialData(params object[] inputForFirstStep)
+        {
+            var data = new Dictionary<Type, object>();
+            foreach (var inputValu in inputForFirstStep)
+            {
+                data.Add(inputValu.GetType(), inputValu);
+            }
+            return data;
         }
 
         private static void StepWithoutInput(IEtlStep step, Dictionary<Type, object> Data)

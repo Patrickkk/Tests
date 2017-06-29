@@ -13,12 +13,15 @@ namespace FileEtl.Designer
     {
         public string StepsFilter { get; set; } = "";
 
-        public ObservableCollection<IEtlStep> EtlSteps { get; set; } = new ObservableCollection<IEtlStep>();
+        public ObservableCollection<ConfiguredEtlStep> EtlSteps { get; set; } = new ObservableCollection<ConfiguredEtlStep>();
 
-        public EtlStepSignature SelectedAvailableSteps { get; set; }
+
+        public ConfiguredEtlStep SelectedEtlStep { get; set; } = null;
+
+        public string SelectedAvailableStep { get; set; }
 
         [DependsOn(nameof(StepsFilter), nameof(EtlSteps))]
-        public IEnumerable<string> AvailableSteps { get { return AllEtlSteps.Where(x => x.Type.FullName.ToLowerInvariant().Contains(StepsFilter.ToLowerInvariant())).Select(x => x.ToString()); } }
+        public IEnumerable<string> AvailableSteps { get { return AllEtlSteps.Where(x => x.Type.FullName.ToLowerInvariant().Contains(StepsFilter.ToLowerInvariant())).Select(x => x.Type.FullName); } }
 
         public ObservableCollection<EtlStepSignature> AllEtlSteps { get; set; } = new ObservableCollection<EtlStepSignature> { };
 
@@ -30,7 +33,9 @@ namespace FileEtl.Designer
 
         public void AddStep()
         {
-            var a = SelectedAvailableSteps;
+            var etlStepType = AllEtlSteps.Single(x => x.Type.FullName == SelectedAvailableStep).Type;
+            var newStep = new ConfiguredEtlStep { StepType = etlStepType, Config = etlStepType.GetNewIConfigurableConfigurationObject() };
+            EtlSteps.Add(newStep);
         }
 
         public void DeleteEtlStep()
