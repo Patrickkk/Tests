@@ -16,5 +16,10 @@ namespace CodeAsCommandLine.Tests
         {
             throw new NotImplementedException();
         }
+
+        private void RunConsoleApplication()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

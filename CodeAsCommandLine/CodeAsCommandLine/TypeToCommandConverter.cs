@@ -14,8 +14,16 @@ namespace CodeAsCommandLine
 
         public static IEnumerable<Command> CommandsForType(Type type)
         {
-            return type.GetMethods(BindingFlags.Static | BindingFlags.Public)
-                .Select(GetCommandForMethod);
+            var commands = type.GetMethods(BindingFlags.Static | BindingFlags.Public)
+                .Select(GetCommandForMethod).ToList();
+            return AddShortNames(commands);
+        }
+
+        private static IEnumerable<Command> AddShortNames(List<Command> commands)
+        {
+            var length = StringLengthUntillNoMoreDuplicates(commands.Select(x => x.CommandName));
+            commands.ToList().ForEach(x => x.Short = CreateShortName(x.CommandName, length));
+            return commands.ToList();
         }
 
         private static Command GetCommandForMethod(MethodInfo method)
@@ -42,27 +50,35 @@ namespace CodeAsCommandLine
 
         private static List<CommandParameter> AddShortNames(IEnumerable<CommandParameter> parameters)
         {
+            var length = StringLengthUntillNoMoreDuplicates(parameters.Select(x => x.Name));
+            parameters.ToList().ForEach(x => x.Short = CreateShortName(x.Name, length));
+            return parameters.ToList();
+        }
+
+        private static string CreateShortName(string parameterName, int length)
+        {
+            return parameterName.Substring(0, length);
+        }
+
+        private static int StringLengthUntillNoMoreDuplicates(IEnumerable<string> values)
+        {
             var length = 0;
             while (true)
             {
                 length += 1;
-                var duplicates = parameters
-                    .Select(x => x.Name)
-                    .Select(x => x.Substring(0, length))
-                    .GroupBy(x => x)
-                    .Any(x => x.Count() > 1);
-
+                var duplicates = values
+                    .Select(value => value.Substring(0, length))
+                    .GroupBy(value => value)
+                    .Any(value => value.Count() > 1);
                 if (!duplicates)
                 {
-                    parameters.ToList().ForEach(x => x.Short = CreateShortParam(x.Name, length));
-                    return parameters.ToList();
+                    return length;
+                }
+                if (length > values.Max(x => x.Length))
+                {
+                    throw new Exception("values aready contains duplicates at the maximum length");
                 }
             }
-        }
-
-        private static string CreateShortParam(string parameterName, int length)
-        {
-            return parameterName.Substring(0, length);
         }
     }
 }

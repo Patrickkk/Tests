@@ -11,7 +11,7 @@ namespace CodeAsCommandLine
 
         public ConsoleApplication CreateConsoleApplication()
         {
-            return new ConsoleApplication(this.CreateRunner());
+            return new ConsoleApplication(Commands, this.CreateRunner(), new HelpTextsGenerator());
         }
 
         public CommandRunner CreateRunner()

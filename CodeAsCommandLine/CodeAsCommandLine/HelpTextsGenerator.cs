@@ -13,21 +13,27 @@ namespace CodeAsCommandLine
 
         public string HelpTextForCommand(Command command)
         {
-            return command.CommandName + "," + command.Short + command.HelpText +
-                Environment.NewLine +
-                HelpForParameters(command.CommandParameters);
+            return WithNewLines(
+                command.CommandName + "," + command.Short + command.HelpText,
+                HelpForParameters(command.CommandParameters));
         }
 
         private string HelpForParameters(IEnumerable<CommandParameter> commandParameters)
         {
             return commandParameters
                 .Select(parameter => $"{parameter.Name}, {parameter.Short} type: {parameter.Type} {parameter.HelpText}")
+                .Where(x => !string.IsNullOrEmpty(x))
                 .StringJoin(Environment.NewLine);
         }
 
         public string HelpTextForCommands(IEnumerable<Command> commands)
         {
             return commands.Select(HelpTextForCommand).StringJoin(Environment.NewLine + Environment.NewLine);
+        }
+
+        private string WithNewLines(params string[] values)
+        {
+            return values.Where(x => !string.IsNullOrEmpty(x)).StringJoin(Environment.NewLine);
         }
     }
 }
