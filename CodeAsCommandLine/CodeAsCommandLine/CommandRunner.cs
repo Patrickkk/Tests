@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CodeAsCommandLine.Model;
 
 namespace CodeAsCommandLine
@@ -35,9 +37,52 @@ namespace CodeAsCommandLine
         {
             var argumentValues = this.arumentParser.Parse(args, commandToRun);
             var methodType = GetMethodType();
-            switch ()
+            switch (methodType)
+            {
+                case MethodType.Static:
+                    commandToRun.Method.Invoke(null, argumentValues);
+                    break;
+
+                case MethodType.StaticAsync:
+                    commandToRun.Method.Invoke(null, argumentValues);
+                    break;
+
+                case MethodType.Instance:
+                    break;
+
+                case MethodType.InstanceAsync:
+                    break;
+
+                default:
+                    break;
+            }
             //static only
-            commandToRun.Method.Invoke(null, argumentValues);
+        }
+
+        private MethodType GetMethodType(Command commandToRun)
+        {
+            if (commandToRun.Method.IsStatic)
+            {
+                if (typeof(Task).IsAssignableFrom(commandToRun.Method.ReturnType))
+                {
+                    return MethodType.StaticAsync;
+                }
+                else
+                {
+                    return MethodType.Static;
+                }
+            }
+            else
+            {
+                if (typeof(Task).IsAssignableFrom(commandToRun.Method.ReturnType))
+                {
+                    return MethodType.InstanceAsync;
+                }
+                else
+                {
+                    return MethodType.Instance;
+                }
+            }
         }
     }
 }
