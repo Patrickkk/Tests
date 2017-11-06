@@ -12,7 +12,7 @@ namespace FileEtl.Core
         public static object GetNewIConfigurableConfigurationObject(this Type type)
         {
             var configType = type.GetLastGenericInterfaceTypeArgument(typeof(IConfigurableEtlStep<>));
-            if(configType == null)
+            if (configType == null)
             {
                 return new object();
             }

@@ -30,8 +30,8 @@ namespace FileEtl.Core
                 // TODO refactor into seperate extensionmethod
                 if (stepconfiguration.StepType.ImplementsIConfigurableEtlStep())
                 {
-                    // TODO refactor into seperate extensionmethod
-                    var configurationType = stepconfiguration.StepType.GetIConfigurableConfigurationType();
+                    // // TODO refactor into seperate extensionmethod
+                    // var configurationType = stepconfiguration.StepType.GetIConfigurableConfigurationType();
 
                     // TODO validate configurationtype with object
                     var configurationProperty = stepconfiguration.StepType.GetProperty("Configuration");

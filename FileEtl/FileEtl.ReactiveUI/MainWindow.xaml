@@ -1,0 +1,57 @@
+﻿<Window x:Class="FileEtl.ReactiveUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileEtl.ReactiveUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1024">
+    <TabControl>
+        <TabItem Header="Setup">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Label>Available Steps</Label>
+                    <TextBox x:Name="StepsFilter" Text="{Binding EtlStepsFilterText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <ListBox x:Name="AvailableSteps" ItemsSource="{Binding FilteredEtlSteps}" SelectedItem="{Binding SelectedAvailableEtlStep}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TypeName}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button x:Name="AddEtlStepButton" Command="{Binding AddEtlStepCommand}">Add</Button>
+                </StackPanel>
+                <StackPanel>
+                    <Button Command="{Binding SaveCommand}">Save</Button>
+                    <Button Command="{Binding LoadCommand}">Load</Button>
+                    <Label>Current process</Label>
+                    <ListBox x:Name="ConfiguredEtlSteps"
+                             ItemsSource="{Binding ConfiguredEtlSteps}"
+                             SelectedItem="{Binding SelectedConfiguredEtlStep}">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Move Up" />
+                                <MenuItem Header="MoveDown" />
+                                <MenuItem Header="Delete" />
+                                <!--Command="{Binding DeleteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}"-->
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding StepType.FullName}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel Width="500">
+                    <Label>Configuration</Label>
+                    <TextBox x:Name="SelectedEtlStepJson" TextWrapping="Wrap" AcceptsReturn="True">
+                        <TextBox.Text>
+                            <Binding Mode="TwoWay" Path="SelectedEtlStepJson" UpdateSourceTrigger="PropertyChanged" />
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</Window>

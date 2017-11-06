@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace CodeAsCommandLine.Model
 {
@@ -14,10 +12,12 @@ namespace CodeAsCommandLine.Model
         /// </summary>
         public string CommandName { get; set; } = "";
 
-        public IEnumerable<CommandParameter> CommandParameters { get; set; }
+        public List<CommandParameter> CommandParameters { get; set; } = new List<CommandParameter>();
 
         public MethodInfo Method { get; set; }
 
-        public string Short { get; internal set; }
+        public string Short { get; set; } = "";
+
+        public string HelpText { get; set; } = "";
     }
 }

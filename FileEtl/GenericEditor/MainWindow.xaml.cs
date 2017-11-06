@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FileEtl.Designer
+namespace GenericEditor
 {
     /// <summary>
-    /// Interaction logic for PreviewWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class PreviewWindow : Window
+    public partial class MainWindow : Window
     {
-        public PreviewWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }

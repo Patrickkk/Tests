@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using CodeAsCommandLine.Model;
 
 namespace CodeAsCommandLine
@@ -41,7 +40,7 @@ namespace CodeAsCommandLine
             }).ToList();
         }
 
-        private static IEnumerable<CommandParameter> AddShortNames(IEnumerable<CommandParameter> parameters)
+        private static List<CommandParameter> AddShortNames(IEnumerable<CommandParameter> parameters)
         {
             var length = 0;
             while (true)
@@ -56,7 +55,7 @@ namespace CodeAsCommandLine
                 if (!duplicates)
                 {
                     parameters.ToList().ForEach(x => x.Short = CreateShortParam(x.Name, length));
-                    return parameters;
+                    return parameters.ToList();
                 }
             }
         }

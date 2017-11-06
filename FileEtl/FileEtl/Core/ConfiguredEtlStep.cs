@@ -1,5 +1,4 @@
 ﻿using System;
-using SoftFluent.Windows;
 
 namespace FileEtl.Core
 {
@@ -7,7 +6,6 @@ namespace FileEtl.Core
     {
         public Type StepType { get; set; }
 
-        [PropertyGridOptions(EditorDataTemplateResourceKey = "ObjectEditor", ForcePropertyChanged = true)]
         public object Config { get; set; }
     }
 }

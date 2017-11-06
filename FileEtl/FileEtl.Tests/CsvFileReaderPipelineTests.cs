@@ -42,7 +42,7 @@ namespace FileEtl.Tests
             container.Register<SingleFileLoaderStep>();
             container.Register<ICsvRecordSelector, SingleRecordCsvRecordReaderSelector>();
             var pipeline = EtlProcessFactory.CreateEtlPipeline(container, etlPipelineConfiguration);
-            PipelineExecutor.RunPipeline(pipeline);
+            PipelineExecutor.RunPipeline(pipeline, context => { }, context => { });
         }
     }
 }

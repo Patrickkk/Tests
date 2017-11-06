@@ -10,9 +10,6 @@ namespace FileEtl.Designer
         public MainWindowView()
         {
             InitializeComponent();
-            //PreviewWindow a = new PreviewWindow();
-            //a.Owner = this;
-            //a.Show();
         }
     }
 }

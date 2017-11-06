@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CodeAsCommandLine.Model;
 
 namespace CodeAsCommandLine
@@ -9,6 +8,11 @@ namespace CodeAsCommandLine
     public class CommandRunnerBuilder
     {
         private List<Command> Commands { get; set; } = new List<Command>();
+
+        public ConsoleApplication CreateConsoleApplication()
+        {
+            return new ConsoleApplication(this.CreateRunner());
+        }
 
         public CommandRunner CreateRunner()
         {

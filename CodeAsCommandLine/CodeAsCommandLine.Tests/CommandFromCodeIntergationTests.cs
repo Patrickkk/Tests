@@ -1,13 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using CodeAsCommandLine.Tests.TestInput;
 using Xunit;
 
 namespace CodeAsCommandLine.Tests
 {
-    public class IntergationTests
+    public class CommandFromCodeIntergationTests
     {
+        [Fact]
+        public void RunningNonExsistingCommandShouldShowHelp()
+        {
+            Assert.Throws<Exception>(() => { RunForStaticMethodsCommand("NonExsisting"); });
+        }
+
+        [Fact]
+        public void RunningCommandWithIncorrectParametersShouldShowErrorAndHelpTextForCommand()
+        {
+            Assert.Throws<Exception>(() => { RunForStaticMethodsCommand($"{nameof(StaticMethods.Parameters)} -text stringValue -numberOfTimes textWhereNumberIsExpected"); });
+        }
+
         [Fact]
         public void TestSimpleStaticMethodWithoutParameters()
         {

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CodeAsCommandLine.Model
 {
@@ -8,10 +6,12 @@ namespace CodeAsCommandLine.Model
     {
         public string Name { get; set; } = "";
 
-        public int Position { get; set; }
+        public int Position { get; set; } = -1;
 
         public Type Type { get; set; }
 
-        public object Short { get; internal set; }
+        public string Short { get; set; } = "";
+
+        public string HelpText { get; set; } = "";
     }
 }
