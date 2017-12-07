@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CodeAsCommandLine.Model;
 
 namespace CodeAsCommandLine
@@ -17,7 +18,24 @@ namespace CodeAsCommandLine
             this.helpTextsGenerator = helpTextsGenerator;
         }
 
-        public void Run()
+        /// <summary>
+        /// If provided with args it will run the given command immediately. Otherwise it will startup as a regular commandline application.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public async Task RunAsync(string[] args = null)
+        {
+            if (args == null)
+            {
+                await RunAsConsoleApplicationAsync();
+            }
+            else
+            {
+                await this.commandRunner.RunAsync(args);
+            }
+        }
+
+        private async Task RunAsConsoleApplicationAsync()
         {
             var quitCommand = "q";
             var helpComand = "help";
@@ -37,7 +55,7 @@ namespace CodeAsCommandLine
                 {
                     try
                     {
-                        this.commandRunner.RunCommand(commandText);
+                        await this.commandRunner.RunCommandAsync(commandText);
                     }
                     catch (Exception ex)
                     {

@@ -9,7 +9,7 @@ namespace CodeAsCommandLine
     /// </summary>
     public class CodeConvert
     {
-        public static CommandRunnerBuilder For<T>()
+        public static CommandRunnerBuilder ForType<T>()
         {
             return new CommandRunnerBuilder().ForType<T>();
         }

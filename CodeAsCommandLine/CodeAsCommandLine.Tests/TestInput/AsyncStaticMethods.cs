@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace CodeAsCommandLine.Tests.TestInput
 {
-    public class AsyncMethods
+    public class AsyncStaticMethods
     {
-        public async Task AsyncMethod()
+        public static async Task AsyncMethod()
         {
+            Console.WriteLine("Test Async");
         }
     }
 }

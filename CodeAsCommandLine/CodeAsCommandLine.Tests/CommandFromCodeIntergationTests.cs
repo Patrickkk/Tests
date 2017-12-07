@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CodeAsCommandLine.Tests.TestInput;
 using Xunit;
 
@@ -7,52 +8,60 @@ namespace CodeAsCommandLine.Tests
     public class CommandFromCodeIntergationTests
     {
         [Fact]
-        public void RunningNonExsistingCommandShouldShowHelp()
+        public async Task RunningNonExsistingCommandShouldShowHelp()
         {
-            Assert.Throws<Exception>(() => { RunForStaticMethodsCommand("NonExsisting"); });
+            await Assert.ThrowsAsync<Exception>(async () => { await RunForStaticMethodsCommand("NonExsisting"); });
         }
 
         [Fact]
-        public void RunningCommandWithIncorrectParametersShouldShowErrorAndHelpTextForCommand()
+        public async Task RunningCommandWithIncorrectParametersShouldShowErrorAndHelpTextForCommand()
         {
-            Assert.Throws<Exception>(() => { RunForStaticMethodsCommand($"{nameof(StaticMethods.Parameters)} -text stringValue -numberOfTimes textWhereNumberIsExpected"); });
+            await Assert.ThrowsAsync<Exception>(async () => { await RunForStaticMethodsCommand($"{nameof(StaticMethods.Parameters)} -text stringValue -numberOfTimes textWhereNumberIsExpected"); });
         }
 
         [Fact]
-        public void TestSimpleStaticMethodWithoutParameters()
+        public async Task TestSimpleStaticMethodWithoutParameters()
         {
-            RunForStaticMethodsCommand(nameof(StaticMethods.WithoutParameters));
+            await RunForStaticMethodsCommand(nameof(StaticMethods.WithoutParameters));
         }
 
         [Fact]
-        public void SimpleIntAndStringValueTest()
+        public async Task TestSimpleStaticAsyncMethodWithoutParameters()
         {
-            RunForStaticMethodsCommand($"{nameof(StaticMethods.Parameters)} -text stringValue -numberOfTimes 10");
+            await RunForStaticMethodsCommand(nameof(AsyncStaticMethods.AsyncMethod));
         }
 
         [Fact]
-        public void SimpleIntAndStringValueTestWithShorts()
+        public async Task SimpleIntAndStringValueTest()
         {
-            RunForStaticMethodsCommand($"{nameof(StaticMethods.Parameters)} -t stringValue -n 10");
+            await RunForStaticMethodsCommand($"{nameof(StaticMethods.Parameters)} -text stringValue -numberOfTimes 10");
         }
 
         [Fact]
-        public void TypeWithStringBasedConstructorShouldBeParsed()
+        public async Task SimpleIntAndStringValueTestWithShorts()
         {
-            RunForStaticMethodsCommand($"{nameof(StaticMethods.UriParameter)} -uri http://localhost:8000 -numberOfTimes 10");
+            await RunForStaticMethodsCommand($"{nameof(StaticMethods.Parameters)} -t stringValue -n 10");
         }
 
         [Fact]
-        public void GenericMethod()
+        public async Task TypeWithStringBasedConstructorShouldBeParsed()
+        {
+            await RunForStaticMethodsCommand($"{nameof(StaticMethods.UriParameter)} -uri http://localhost:8000 -numberOfTimes 10");
+        }
+
+        [Fact]
+        public async Task GenericMethod()
         {
             throw new NotImplementedException();
-            RunForStaticMethodsCommand($"{nameof(StaticMethods.Generic)} -T system.string -uri http://localhost:8000 -numberOfTimes 10");
+            await RunForStaticMethodsCommand($"{nameof(StaticMethods.Generic)} -T system.string -uri http://localhost:8000 -numberOfTimes 10");
         }
 
-        private static void RunForStaticMethodsCommand(string command)
+        private static Task RunForStaticMethodsCommand(string command)
         {
-            var commandRunner = CodeConvert.For<StaticMethods>().CreateRunner();
-            commandRunner.RunCommand(command);
+            var commandRunner = CodeConvert.ForType<StaticMethods>()
+                                           .ForType<AsyncStaticMethods>()
+                                           .CreateRunner();
+            return commandRunner.RunCommandAsync(command);
         }
     }
 }
