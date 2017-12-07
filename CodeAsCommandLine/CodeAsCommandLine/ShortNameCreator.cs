@@ -7,15 +7,37 @@ namespace CodeAsCommandLine
 {
     internal class ShortNameCreator
     {
-        public static string AddShortNames(string name, IEnumerable<string> allNames)
+        public static string GetShortNameFor(string name, IEnumerable<string> exsistingNames)
         {
-            var length = StringLengthUntillNoMoreDuplicates(allNames);
-            return CreateShortName(name, length);
+            return
+                GetSingleLetterShortName(name, exsistingNames) ??
+                GetCapitalLettersShortName(name, exsistingNames) ??
+                GetMinimumUniqueLengthShortName(name, exsistingNames);
         }
 
-        private static string CreateShortName(string parameterName, int length)
+        private static string GetMinimumUniqueLengthShortName(string name, IEnumerable<string> exsistingNames)
         {
-            return parameterName.Substring(0, length);
+            var length = StringLengthUntillNoMoreDuplicates(exsistingNames);
+            return name.Substring(0, length);
+        }
+
+        private static string GetCapitalLettersShortName(string name, IEnumerable<string> exsistingNames)
+        {
+            var capitalLettersName = string.Concat(name.Where(x => char.IsUpper(x)));
+            if (!exsistingNames.Contains(capitalLettersName, StringComparer.OrdinalIgnoreCase))
+            {
+                return capitalLettersName;
+            }
+            return null;
+        }
+
+        private static string GetSingleLetterShortName(string name, IEnumerable<string> exsistingNames)
+        {
+            if (!exsistingNames.Contains(name.Substring(0, 1), StringComparer.OrdinalIgnoreCase))
+            {
+                return name.Substring(0, 1);
+            }
+            return null;
         }
 
         private static int StringLengthUntillNoMoreDuplicates(IEnumerable<string> values)

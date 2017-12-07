@@ -8,7 +8,7 @@ namespace CodeAsCommandLine
     {
         public static string SafeSubstring(this string value, int startIndex, int length)
         {
-            if (value.Length <= length - startIndex)
+            if (value.Length > length + startIndex)
             {
                 return value.Substring(startIndex, length);
             }

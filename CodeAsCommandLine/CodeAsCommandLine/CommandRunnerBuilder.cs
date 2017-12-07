@@ -18,13 +18,7 @@ namespace CodeAsCommandLine
 
         public CommandRunner CreateRunner()
         {
-            GenerateUniqueClassPrfixShorts(this.Commands)
             return new CommandRunner(this.Commands, new PositionalArgumentParser(), instanceProvider);
-        }
-
-        private void GenerateUniqueClassPrfixShorts(List<Command> commands)
-        {
-            throw new NotImplementedException();
         }
 
         public CommandRunnerBuilder ForInstance(object instance)
@@ -39,7 +33,7 @@ namespace CodeAsCommandLine
 
         public CommandRunnerBuilder ForType(Type type)
         {
-            this.Commands.AddRange(TypeToCommandConverter.CommandsForType(type));
+            this.Commands.AddRange(TypeToCommandConverter.CommandsForType(type, this.Commands));
             return this;
         }
 
