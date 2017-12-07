@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CodeAsCommandLine.Tests.TestInput;
 
 namespace CodeAsCommandLine.ConsoleAppExample
@@ -9,8 +10,17 @@ namespace CodeAsCommandLine.ConsoleAppExample
         {
             var app = CodeConvert.ForType<StaticMethods>()
                                  .ForType<AsyncStaticMethods>()
+                                 .ForType<InstanceTestClass>()
+                                 .WithInstanceCreator(InstanceProvider)
                                  .CreateConsoleApplication();
             await app.RunAsync(args);
+        }
+
+        private static InstanceTestClass instanceTestClass = new InstanceTestClass("Console instance class");
+
+        private static object InstanceProvider(Type type)
+        {
+            return instanceTestClass;
         }
     }
 }

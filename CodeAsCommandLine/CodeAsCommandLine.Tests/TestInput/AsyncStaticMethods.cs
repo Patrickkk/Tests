@@ -10,6 +10,7 @@ namespace CodeAsCommandLine.Tests.TestInput
         public static async Task AsyncMethod()
         {
             Console.WriteLine("Test Async");
+            await Task.Delay(10);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace CodeAsCommandLine
         public string HelpTextForCommand(Command command)
         {
             return WithNewLines(
-                command.CommandName + "," + command.Short + command.HelpText,
+                $"{command.ClassPrefix}[{command.ClassShortPrefix}] {command.CommandName},[{command.Short}] {command.HelpText}" +
                 HelpForParameters(command.CommandParameters));
         }
 

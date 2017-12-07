@@ -8,14 +8,16 @@ namespace CodeAsCommandLine
     public class ConsoleApplication
     {
         private readonly HelpTextsGenerator helpTextsGenerator;
+        private readonly Func<Type, object> instanceProvider;
         private readonly List<Command> commands;
         private CommandRunner commandRunner;
 
-        public ConsoleApplication(List<Command> commands, CommandRunner commandRunner, HelpTextsGenerator helpTextsGenerator)
+        public ConsoleApplication(List<Command> commands, CommandRunner commandRunner, HelpTextsGenerator helpTextsGenerator, Func<Type, object> instanceProvider)
         {
             this.commands = commands;
             this.commandRunner = commandRunner;
             this.helpTextsGenerator = helpTextsGenerator;
+            this.instanceProvider = instanceProvider;
         }
 
         /// <summary>
@@ -25,7 +27,7 @@ namespace CodeAsCommandLine
         /// <returns></returns>
         public async Task RunAsync(string[] args = null)
         {
-            if (args == null)
+            if (args == null || args.Length == 0)
             {
                 await RunAsConsoleApplicationAsync();
             }

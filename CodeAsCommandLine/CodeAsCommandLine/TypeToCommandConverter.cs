@@ -14,7 +14,7 @@ namespace CodeAsCommandLine
 
         public static IEnumerable<Command> CommandsForType(Type type)
         {
-            var commands = type.GetMethods(BindingFlags.Static | BindingFlags.Public)
+            var commands = type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
                 .Select(GetCommandForMethod).ToList();
             return AddShortNames(commands);
         }
@@ -67,7 +67,7 @@ namespace CodeAsCommandLine
             {
                 length += 1;
                 var duplicates = values
-                    .Select(value => value.Substring(0, length))
+                    .Select(value => value.SafeSubstring(0, length))
                     .GroupBy(value => value)
                     .Any(value => value.Count() > 1);
                 if (!duplicates)

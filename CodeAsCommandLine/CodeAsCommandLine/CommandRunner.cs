@@ -9,12 +9,14 @@ namespace CodeAsCommandLine
     public class CommandRunner
     {
         private readonly IArgumentParser arumentParser;
+        private readonly Func<Type, object> instanceProvider;
         private readonly List<Command> commands;
 
-        public CommandRunner(List<Command> commands, IArgumentParser argumentParser)
+        public CommandRunner(List<Command> commands, IArgumentParser argumentParser, Func<Type, object> instanceProvider)
         {
             this.commands = commands;
             this.arumentParser = argumentParser;
+            this.instanceProvider = instanceProvider;
         }
 
         public Task RunCommandAsync(string command)
@@ -23,17 +25,17 @@ namespace CodeAsCommandLine
             return RunAsync(args);
         }
 
-        public Task RunAsync(string[] args, Func<Type, object> instanceLoader = null)
+        public Task RunAsync(string[] args)
         {
             var command = args[0];
 
             // TODO singleordefault etc.
             var commandToRun = this.commands.Single(x => x.CommandName == command || x.Short == command);
 
-            return RunCommandAsync(commandToRun, args, instanceLoader);
+            return RunCommandAsync(commandToRun, args);
         }
 
-        private async Task RunCommandAsync(Command commandToRun, string[] args, Func<Type, object> instanceLoader)
+        private async Task RunCommandAsync(Command commandToRun, string[] args)
         {
             var argumentValues = this.arumentParser.Parse(args, commandToRun);
             var methodType = GetMethodType(commandToRun);
@@ -48,7 +50,7 @@ namespace CodeAsCommandLine
                     break;
 
                 case MethodType.Instance:
-                    var instance = instanceLoader(commandToRun.Method.DeclaringType);
+                    var instance = instanceProvider(commandToRun.Method.DeclaringType);
                     commandToRun.Method.Invoke(instance, argumentValues);
                     break;
 
