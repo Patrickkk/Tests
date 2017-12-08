@@ -10,9 +10,9 @@ namespace CodeAsCommandLine
     {
         private readonly IArgumentParser arumentParser;
         private readonly Func<Type, object> instanceProvider;
-        private readonly List<Command> commands;
+        private readonly List<CommandClassWithCommand> commands;
 
-        public CommandRunner(List<Command> commands, IArgumentParser argumentParser, Func<Type, object> instanceProvider)
+        public CommandRunner(List<CommandClassWithCommand> commands, IArgumentParser argumentParser, Func<Type, object> instanceProvider)
         {
             this.commands = commands;
             this.arumentParser = argumentParser;
@@ -29,63 +29,61 @@ namespace CodeAsCommandLine
         {
             var command = args[0];
 
-            // TODO singleordefault etc.
-            var commandToRun = this.commands.Single(x => x.CommandName == command || x.Short == command);
+            var commandToRun = GetCommandToRun(command, args);
 
-            return RunCommandAsync(commandToRun, args);
+            return RunCommandAsync(commandToRun.Command, args);
+        }
+
+        private CommandClassWithCommand GetCommandToRun(string command, string[] args)
+        {
+            // todo turn into single method for both paths.
+            var matchingCommands = GetCommandsWithMathingName(command);
+            if (matchingCommands.None())
+            {
+                throw new Exception($"No Commands found for command '{command}'");
+            }
+            return matchingCommands.Single();
+
+            // TODO match based on parameters
+            //var exactMatch = matchingCommands.Where(x=> )
+        }
+
+        private IEnumerable<CommandClassWithCommand> GetCommandsWithMathingName(string command)
+        {
+            if (command.Contains('.'))
+            {
+                var classPrefix = command.Split('.')[0];
+                var commandName = command.Split('.')[1];
+                return this.commands.Where(x => (x.CommandClass.ClassName == classPrefix || x.CommandClass.ClassNameShort == classPrefix) &&
+                (x.Command.CommandName == commandName || x.Command.Short == commandName));
+            }
+            else
+            {
+                return this.commands.Where(x => x.Command.CommandName == command || x.Command.Short == command);
+            }
         }
 
         private async Task RunCommandAsync(Command commandToRun, string[] args)
         {
             var argumentValues = this.arumentParser.Parse(args, commandToRun);
-            var methodType = GetMethodType(commandToRun);
-            switch (methodType)
+            var instance = GetInstanceOrDefault(commandToRun);
+            if (typeof(Task).IsAssignableFrom(commandToRun.Method.ReturnType))
             {
-                case MethodType.Static:
-                    commandToRun.Method.Invoke(null, argumentValues);
-                    break;
-
-                case MethodType.StaticAsync:
-                    await (Task)commandToRun.Method.Invoke(null, argumentValues);
-                    break;
-
-                case MethodType.Instance:
-                    var instance = instanceProvider(commandToRun.Method.DeclaringType);
-                    commandToRun.Method.Invoke(instance, argumentValues);
-                    break;
-
-                case MethodType.InstanceAsync:
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        private MethodType GetMethodType(Command commandToRun)
-        {
-            if (commandToRun.Method.IsStatic)
-            {
-                if (typeof(Task).IsAssignableFrom(commandToRun.Method.ReturnType))
-                {
-                    return MethodType.StaticAsync;
-                }
-                else
-                {
-                    return MethodType.Static;
-                }
+                commandToRun.Method.Invoke(instance, argumentValues);
             }
             else
             {
-                if (typeof(Task).IsAssignableFrom(commandToRun.Method.ReturnType))
-                {
-                    return MethodType.InstanceAsync;
-                }
-                else
-                {
-                    return MethodType.Instance;
-                }
+                await (Task)commandToRun.Method.Invoke(instance, argumentValues);
             }
+        }
+
+        private object GetInstanceOrDefault(Command commandToRun)
+        {
+            if (commandToRun.Method.IsStatic)
+            {
+                return null;
+            }
+            return instanceProvider(commandToRun.Method.DeclaringType);
         }
     }
 }

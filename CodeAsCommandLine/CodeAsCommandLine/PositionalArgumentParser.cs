@@ -20,7 +20,7 @@ namespace CodeAsCommandLine
 
         private static object ParseArgForParameter(string[] args, CommandParameter parameter)
         {
-            var argumentTags = args.Where(arg => string.Equals(parameter.Name, arg.TrimStart('-'), StringComparison.OrdinalIgnoreCase));
+            var argumentTags = args.Where(arg => string.Equals(parameter.Name, arg.TrimStart('-'), StringComparison.OrdinalIgnoreCase) || string.Equals(parameter.Short, arg.TrimStart('-'), StringComparison.OrdinalIgnoreCase));
             if (argumentTags.Count() > 1)
             {
                 throw new Exception($"More than one value found for the parameter {parameter.Name}");// TODO improve
@@ -28,7 +28,7 @@ namespace CodeAsCommandLine
 
             if (!argumentTags.Any())
             {
-                throw new Exception();
+                throw new Exception($"No matching value found for required parameter {parameter.Name}");
             }
 
             var argumentTag = argumentTags.Single();

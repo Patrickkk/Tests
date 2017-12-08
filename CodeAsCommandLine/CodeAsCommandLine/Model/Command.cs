@@ -5,8 +5,7 @@ namespace CodeAsCommandLine.Model
 {
     public class Command
     {
-        public string ClassPrefix { get; set; }
-        public string ClassShortPrefix { get; set; } = "";
+        public CommandClass CommandClass { get; set; }
 
         /// <summary>
         /// the command an all aliases that can be used.

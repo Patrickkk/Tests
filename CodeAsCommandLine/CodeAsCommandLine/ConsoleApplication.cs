@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CodeAsCommandLine.Model;
 
 namespace CodeAsCommandLine
 {
@@ -9,10 +8,10 @@ namespace CodeAsCommandLine
     {
         private readonly HelpTextsGenerator helpTextsGenerator;
         private readonly Func<Type, object> instanceProvider;
-        private readonly List<Command> commands;
+        private readonly List<CommandClassWithCommand> commands;
         private CommandRunner commandRunner;
 
-        public ConsoleApplication(List<Command> commands, CommandRunner commandRunner, HelpTextsGenerator helpTextsGenerator, Func<Type, object> instanceProvider)
+        public ConsoleApplication(List<CommandClassWithCommand> commands, CommandRunner commandRunner, HelpTextsGenerator helpTextsGenerator, Func<Type, object> instanceProvider)
         {
             this.commands = commands;
             this.commandRunner = commandRunner;
@@ -62,6 +61,7 @@ namespace CodeAsCommandLine
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex);
+
                         //TODO handle
                     }
                 }

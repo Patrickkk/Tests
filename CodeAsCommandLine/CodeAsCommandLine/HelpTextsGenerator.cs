@@ -11,22 +11,22 @@ namespace CodeAsCommandLine
         {
         }
 
-        public string HelpTextForCommand(Command command)
+        public string HelpTextForCommand(CommandClassWithCommand command)
         {
             return WithNewLines(
-                $"{command.ClassPrefix}[{command.ClassShortPrefix}] {command.CommandName},[{command.Short}] {command.HelpText}" +
-                HelpForParameters(command.CommandParameters));
+                $"{command.CommandClass.ClassName}[{command.CommandClass.ClassNameShort}] {command.Command.CommandName},[{command.Command.Short}] {command.Command.HelpText}" +
+                HelpForParameters(command.Command.CommandParameters));
         }
 
         private string HelpForParameters(IEnumerable<CommandParameter> commandParameters)
         {
             return commandParameters
-                .Select(parameter => $"{parameter.Name}, {parameter.Short} type: {parameter.Type} {parameter.HelpText}")
+                .Select(parameter => $"{parameter.Name}[{parameter.Short}] type: {parameter.Type} {parameter.HelpText}")
                 .Where(x => !string.IsNullOrEmpty(x))
                 .StringJoin(Environment.NewLine);
         }
 
-        public string HelpTextForCommands(IEnumerable<Command> commands)
+        public string HelpTextForCommands(IEnumerable<CommandClassWithCommand> commands)
         {
             return commands.Select(HelpTextForCommand).StringJoin(Environment.NewLine + Environment.NewLine);
         }
