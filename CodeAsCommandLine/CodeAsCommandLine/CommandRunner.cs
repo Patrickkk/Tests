@@ -36,16 +36,14 @@ namespace CodeAsCommandLine
 
         private CommandClassWithCommand GetCommandToRun(string command, string[] args)
         {
-            // todo turn into single method for both paths.
             var matchingCommands = GetCommandsWithMathingName(command);
             if (matchingCommands.None())
             {
                 throw new Exception($"No Commands found for command '{command}'");
             }
-            return matchingCommands.Single();
 
             // TODO match based on parameters
-            //var exactMatch = matchingCommands.Where(x=> )
+            return matchingCommands.Single();
         }
 
         private IEnumerable<CommandClassWithCommand> GetCommandsWithMathingName(string command)

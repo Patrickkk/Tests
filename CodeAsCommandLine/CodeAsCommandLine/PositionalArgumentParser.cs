@@ -23,7 +23,7 @@ namespace CodeAsCommandLine
             var argumentTags = args.Where(arg => string.Equals(parameter.Name, arg.TrimStart('-'), StringComparison.OrdinalIgnoreCase) || string.Equals(parameter.Short, arg.TrimStart('-'), StringComparison.OrdinalIgnoreCase));
             if (argumentTags.Count() > 1)
             {
-                throw new Exception($"More than one value found for the parameter {parameter.Name}");// TODO improve
+                throw new Exception($"More than one value found for the parameter {parameter.Name}");
             }
 
             if (!argumentTags.Any())

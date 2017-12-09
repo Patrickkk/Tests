@@ -62,7 +62,7 @@ namespace CodeAsCommandLine
                     {
                         Console.WriteLine(ex);
 
-                        //TODO handle
+                        //TODO handle in a better way
                     }
                 }
             }
