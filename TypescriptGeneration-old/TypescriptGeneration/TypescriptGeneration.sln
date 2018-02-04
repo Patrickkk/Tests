@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypescriptGeneration", "TypescriptGeneration\TypescriptGeneration.csproj", "{7D7820AB-68E8-46D6-A4DD-D3BD668E3D11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypescriptGeneration.Tests", "TypescriptGeneration.Tests\TypescriptGeneration.Tests.csproj", "{F061A6E5-BBDF-4571-89B0-611A26E4E9E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A82D6EFE-72AC-49E5-85B0-78AA7EFFFBF1}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\Build.bat = .nuget\Build.bat
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\PublishToNugetOrg.bat = .nuget\PublishToNugetOrg.bat
+		.nuget\TypescriptGeneration.nuspec = .nuget\TypescriptGeneration.nuspec
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D7820AB-68E8-46D6-A4DD-D3BD668E3D11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7820AB-68E8-46D6-A4DD-D3BD668E3D11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7820AB-68E8-46D6-A4DD-D3BD668E3D11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7820AB-68E8-46D6-A4DD-D3BD668E3D11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F061A6E5-BBDF-4571-89B0-611A26E4E9E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F061A6E5-BBDF-4571-89B0-611A26E4E9E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F061A6E5-BBDF-4571-89B0-611A26E4E9E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F061A6E5-BBDF-4571-89B0-611A26E4E9E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

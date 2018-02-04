@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypedDotNet", "TypedDotNet\TypedDotNet.csproj", "{E2DDBD61-4664-45FE-B4BA-A98458BCB90B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypedDotNet.Test", "TypedDotNet.Test\TypedDotNet.Test.csproj", "{4DE662B7-21CD-43A2-8AD5-9A0F91E48C64}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{A5B617FB-46CF-454C-A8D5-7750F1363633}"
+	ProjectSection(SolutionItems) = preProject
+		nuget\Build.bat = nuget\Build.bat
+		nuget\PublishToNugetOrg.bat = nuget\PublishToNugetOrg.bat
+		nuget\TypedDotNet.nuspec = nuget\TypedDotNet.nuspec
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2DDBD61-4664-45FE-B4BA-A98458BCB90B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2DDBD61-4664-45FE-B4BA-A98458BCB90B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2DDBD61-4664-45FE-B4BA-A98458BCB90B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2DDBD61-4664-45FE-B4BA-A98458BCB90B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DE662B7-21CD-43A2-8AD5-9A0F91E48C64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE662B7-21CD-43A2-8AD5-9A0F91E48C64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE662B7-21CD-43A2-8AD5-9A0F91E48C64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE662B7-21CD-43A2-8AD5-9A0F91E48C64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

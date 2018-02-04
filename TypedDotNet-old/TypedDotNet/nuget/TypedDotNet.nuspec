@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>TypedDotNet</id>
+    <version>0.0.9</version>
+    <title>TypescriptGeneration - Generate typescript from .net code.</title>
+    <authors>Patrick van Lohuizen</authors>
+    <owners>Patrick van Lohuizen</owners>
+    <licenseUrl>https://github.com/Patrickkk/TypedDotNet/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Patrickkk/TypedDotNet</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This project helps create a typescript model that can then be used to write typesrcript classes/interfaces/other typescript constructs based on a .net assembly.</description>
+    <summary></summary>
+    <releaseNotes>
+      - added GUID support.
+    </releaseNotes>
+    <copyright>Patrick van Lohuizen</copyright>
+    <language>en-US</language>
+    <tags>Typescript, Generation, .net,C#, VB</tags>
+    <dependencies>
+      <dependency id="FunctionalSharp.DiscriminatedUnions" version="0.9.1" />
+      <dependency id="FunctionalSharp.OptionTypes" version="0.9.2" />
+      <dependency id="FunctionalSharp.PatternMatching" version="0.9.4" />
+      <dependency id="TypescriptGeneration" version="0.5.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\TypedDotNet\bin\Release\TypedDotNet.dll" target="lib\net461\TypedDotNet.dll" />
+  </files>
+</package>
