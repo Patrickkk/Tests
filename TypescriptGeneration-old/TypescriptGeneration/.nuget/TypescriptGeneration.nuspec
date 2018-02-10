@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>TypescriptGeneration</id>
+    <version>0.5.3</version>
+    <title>TypescriptGeneration - Generate typescript with .net.</title>
+    <authors>Patrick van Lohuizen</authors>
+    <owners>Patrick van Lohuizen</owners>
+    <licenseUrl>https://github.com/Patrickkk/TypescriptGeneration/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Patrickkk/TypescriptGeneration</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This dll helps with the generation of typescript code. A model representing the typescript code can be build and then used to generate the actual code. the main reason this package was created is because it will be used in "https://github.com/Patrickkk/TypedDotNet".</description>
+    <summary>This dll helps with the generation of typescript code. A model representing the typescript code can be build and then used to generate the actual code.</summary>
+    <releaseNotes>
+      - Allow typescript interface to inherrit from multiple classes/interfaces.
+    </releaseNotes>
+    <copyright>Patrick van Lohuizen</copyright>
+    <language>en-US</language>
+    <tags>Typescript, Generation, .net,C#, VB</tags>
+    <dependencies>
+      <dependency id="FunctionalSharp.DiscriminatedUnions" version="0.9.1" />
+      <dependency id="FunctionalSharp.OptionTypes" version="0.9.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\TypescriptGeneration\bin\Release\TypescriptGeneration.dll" target="lib\net461\TypescriptGeneration.dll" />
+  </files>
+</package>
