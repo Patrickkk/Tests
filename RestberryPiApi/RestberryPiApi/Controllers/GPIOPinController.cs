@@ -13,7 +13,7 @@ namespace RestberryPiApi.Controllers
     [Route("api/GPIO")]
     public class GPIOPinController : Controller
     {
-        private static IEnumerable<GpioPin> GpioPins = Pi.Gpio.Pins.Where(x => x.Capabilities.Contains(PinCapability.GP));
+        //private static IEnumerable<GpioPin> GpioPins = Pi.Gpio.Pins.Where(x => x.Capabilities.Contains(PinCapability.GP));
 
         // GET: api/GPIO
         [HttpGet]
@@ -26,7 +26,6 @@ namespace RestberryPiApi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
-            throw new NotImplementedException();
             return "value";
         }
 
