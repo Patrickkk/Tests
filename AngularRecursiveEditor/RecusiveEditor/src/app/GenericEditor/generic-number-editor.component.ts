@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-generic-number-editor',
-    templateUrl: './generic-number-editor.component.html',
+    template: '<ng-template app-editor-field-host></ng-template>',
 })
 export class GenericNumberEditorComponent extends GenericFieldEditorBase implements OnInit {
     @Input() fieldName: string;
@@ -15,5 +15,21 @@ export class GenericNumberEditorComponent extends GenericFieldEditorBase impleme
         super();
     }
 
-    ngOnInit() { }
+
+    loadComponent() {
+        this.currentAddIndex = (this.currentAddIndex + 1) % this.ads.length;
+        let adItem = this.ads[this.currentAddIndex];
+    
+        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(adItem.component);
+    
+        let viewContainerRef = this.adHost.viewContainerRef;
+        viewContainerRef.clear();
+    
+        let componentRef = viewContainerRef.createComponent(componentFactory);
+        (<AdComponent>componentRef.instance).data = adItem.data;
+      }
+
+    ngOnInit() { 
+        
+    }
 }
