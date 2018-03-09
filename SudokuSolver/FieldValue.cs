@@ -135,7 +135,7 @@ namespace SudokuSolver
                 return ValuesThatMustBeInCollumBlock(playingField, x, 2)
                     .Concat(ValuesThatMustBeInCollumBlock(playingField, x, 3));
             }
-            if (y > 3 && x <= 6)
+            if (y > 3 && y <= 6)
             {
                 return ValuesThatMustBeInCollumBlock(playingField, x, 1)
                      .Concat(ValuesThatMustBeInCollumBlock(playingField, x, 3));
