@@ -1,0 +1,5 @@
+<h1>Pins</h1>
+<p>pins: {{pins.length}}</p>
+<ul *ngFor="let pin of pins">
+    <li (click)=navigateToPinPage(pin)>{{pin.pinNumber}}</li>
+</ul>
