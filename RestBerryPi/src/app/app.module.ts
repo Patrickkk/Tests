@@ -7,7 +7,7 @@ import { HomeComponent } from './home.component';
 import { PinsComponent } from './Pins/pins.component';
 import { PinsService } from './Pins/pinsapi.service';
 import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -17,6 +17,8 @@ import { MatToolbarModule } from '@angular/material';
   ],
   imports: [
     MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserModule,

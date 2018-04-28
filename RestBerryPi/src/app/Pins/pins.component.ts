@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { PinsService } from './pinsapi.service';
 import { Pin } from './pin';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { ErrorHandler } from '../cross-cutting/ErrorHandler';
 
 @Component({
     selector: 'app-pins',
     templateUrl: './pins.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PinsComponent implements OnInit {
     public pins: Pin[] = [];
@@ -22,7 +21,11 @@ export class PinsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.pinsService.getPins().subscribe(pins => { this.pins = pins; }, ErrorHandler.HandleError);
+        this.pinsService.getPins().subscribe(pins => {
+            console.log(pins);
+            this.pins = pins;
+            console.log(this.pins);
+        }, ErrorHandler.HandleError);
     }
 }
 
