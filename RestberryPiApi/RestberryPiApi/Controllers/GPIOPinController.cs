@@ -19,7 +19,7 @@ namespace RestberryPiApi.Controllers
         [HttpGet]
         public IEnumerable<GpioPin> Get()
         {
-            return Pi.Gpio.Pins.OrderBy(x => x.Capabilities);
+            return Pi.Gpio.Pins;
         }
 
         // GET: api/GPIO/5
