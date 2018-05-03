@@ -38,7 +38,7 @@ namespace RestberryPiApi.Controllers
             pin1.Write(value);
         }
 
-        [HttpPost()]
+        [HttpPost("toggle/{id}")]
         public void Toggle(int id)
         {
             var pin1 = Pi.Gpio[id];
