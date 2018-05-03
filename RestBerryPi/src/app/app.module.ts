@@ -4,8 +4,9 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
 import { HomeComponent } from './home.component';
-import { PinsComponent } from './Pins/pins.component';
-import { PinsService } from './Pins/pinsapi.service';
+import { PinsComponent } from './pins/pins.component';
+import { PinComponent } from './pins/pin.component';
+import { PinsApiService } from './pins/pinsapi.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
 
@@ -14,6 +15,7 @@ import { MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/mater
     AppComponent,
     HomeComponent,
     PinsComponent,
+    PinComponent
   ],
   imports: [
     MatToolbarModule,
@@ -24,7 +26,7 @@ import { MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/mater
     BrowserModule,
     RouterModule,
   ],
-  providers: [PinsService],
+  providers: [PinsApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,6 @@
-<h1>{{pin.name}}</h1>
-<ul *ngFor="let capability of pin.capabilities">
+<h1>{{pin?.name}}</h1>
+<ul *ngFor="let capability of pin?.capabilities">
     <li>{{capability}}</li>
 </ul>
+
+<button (click)="toggle()" color="primary" mat-raised-button>toggle</button>

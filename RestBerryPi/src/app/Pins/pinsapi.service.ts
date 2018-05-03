@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Pin, PhysicalPin } from './pin';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 @Injectable()
-export class PinsService {
+export class PinsApiService {
 
     constructor(private httpClient: HttpClient) {
+    }
+
+    public toggle(wiringPiPinNumber: number) {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.httpClient.post('http://192.168.1.150:5000/api/gpio/toggle/' + wiringPiPinNumber, null);
+    }
+
+    public getPin(id: number) {
+        // TODO: only get relevant pin.
+        return this.httpClient.get<Pin>('http://192.168.1.150:5000/api/gpio/get/' + id);
     }
 
     public getPins() {

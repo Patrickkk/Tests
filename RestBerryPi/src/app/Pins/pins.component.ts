@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PinsService } from './pinsapi.service';
+import { PinsApiService } from './pinsapi.service';
 import { Pin } from './pin';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ErrorHandler } from '../cross-cutting/ErrorHandler';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-pins',
@@ -12,12 +13,12 @@ import { ErrorHandler } from '../cross-cutting/ErrorHandler';
 export class PinsComponent implements OnInit {
     public pins: Pin[] = [];
 
-    constructor(private pinsService: PinsService) {
-
+    constructor(private pinsService: PinsApiService, private router: Router) {
     }
 
     navigateToPinPage(pin: Pin) {
-
+        console.log(pin);
+        this.router.navigate(['/pin', pin.pinNumber]);
     }
 
     ngOnInit() {
