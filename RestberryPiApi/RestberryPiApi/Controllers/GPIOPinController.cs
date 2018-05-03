@@ -24,10 +24,9 @@ namespace RestberryPiApi.Controllers
 
         // GET: api/GPIO/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public GpioPin Get(int id)
         {
-            var pin = Pi.Gpio.Pins[id];
-            return $"pinId: {id}, wireingpin: {pin.WiringPiPinNumber} x: {string.Join(',', pin.Capabilities)}";
+            return Pi.Gpio.Pins[id];
         }
 
         // POST: api/GPIO
@@ -37,6 +36,15 @@ namespace RestberryPiApi.Controllers
             var pin1 = Pi.Gpio[id];
             pin1.PinMode = Unosquare.RaspberryIO.Gpio.GpioPinDriveMode.Output;
             pin1.Write(value);
+        }
+
+        [HttpPost()]
+        public void Toggle(int id, [FromBody]bool value)
+        {
+            var pin1 = Pi.Gpio[id];
+            var currentvalue = pin1.Read();
+            pin1.PinMode = Unosquare.RaspberryIO.Gpio.GpioPinDriveMode.Output;
+            pin1.Write(!currentvalue);
         }
 
         // PUT: api/GPIO/5
