@@ -3,3 +3,33 @@
 <ul *ngFor="let pin of pins">
     <button (click)=navigateToPinPage(pin) color="primary" mat-raised-button>{{pin.pinNumber}}</button>
 </ul>
+
+<div class="center">
+    <div class="pins">
+        <div class="pin">
+            <p>1</p>
+            <p>3.3v</p>
+            <mat-icon>flash_on</mat-icon>
+        </div>
+        <div class="pin">
+            <p>2</p>
+            <p>5v</p>
+            <mat-icon>flash_on</mat-icon>
+        </div>
+        <div class="pin">
+            <p>3</p>
+            <p>I2C1 SDA</p>
+            <mat-icon>memory</mat-icon>
+        </div>
+        <div class="pin">
+            <p>4</p>
+            <p>Ground</p>
+            <mat-icon>flash_off</mat-icon>
+        </div>
+        <div class="pin">
+            <p>4</p>
+            <p>Ground</p>
+            <mat-icon>center_focus_strong</mat-icon>
+        </div>
+    </div>
+</div>

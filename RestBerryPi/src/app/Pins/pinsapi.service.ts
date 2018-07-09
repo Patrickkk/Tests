@@ -17,7 +17,7 @@ export class PinsApiService {
 
     public getPin(id: number) {
         // TODO: only get relevant pin.
-        return this.httpClient.get<Pin>('http://192.168.1.150:5000/api/gpio/get/' + id);
+        return this.httpClient.get<Pin>('http://192.168.1.150:5000/api/gpio/' + id);
     }
 
     public getPins() {

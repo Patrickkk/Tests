@@ -1,0 +1,27 @@
+.pins{
+    display: flex;
+    flex-flow: wrap;
+    width: 600px;
+    margin: auto;
+
+}
+
+.pin {
+    min-width: 300px;
+    flex-basis: 50%;
+    flex-shrink: 1;
+    background: green;
+    display: flex;
+    justify-content: flex-end;
+}
+
+div.pin:nth-child(even) {
+    color: red;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.center{
+    display: flex;
+    width: 100%;
+}

@@ -20,7 +20,7 @@ export class PinComponent implements OnInit {
 
     public toggle() {
         console.log('toggle');
-        this.pinapi.setPin(this.pin.wiringPiPinNumber, true).subscribe(() => { });
+        this.pinapi.toggle(this.pin.wiringPiPinNumber).subscribe(() => { });
     }
 
     ngOnInit() {

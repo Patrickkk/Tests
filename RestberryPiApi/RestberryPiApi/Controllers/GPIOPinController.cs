@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestberryPiApi.PinAccess;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Gpio;
 
@@ -11,15 +12,19 @@ namespace RestberryPiApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/GPIO")]
-    public class GPIOPinController : Controller
+    public class GpioPinController : Controller
     {
-        //private static IEnumerable<GpioPin> GpioPins = Pi.Gpio.Pins.Where(x => x.Capabilities.Contains(PinCapability.GP));
+        private readonly IPiPinsService pinsService;
 
-        // GET: api/GPIO
+        public GpioPinController(IPiPinsService pinsService)
+        {
+            this.pinsService = pinsService;
+        }
+
         [HttpGet]
         public IEnumerable<GpioPin> Get()
         {
-            return Pi.Gpio.Pins;
+            return pinsService.GetAllPins();
         }
 
         // GET: api/GPIO/5
@@ -29,13 +34,17 @@ namespace RestberryPiApi.Controllers
             return Pi.Gpio.Pins[id];
         }
 
+        [HttpGet("Read/{id}")]
+        public bool Read(int id)
+        {
+            return pinsService.ReadModeAndRead(id);
+        }
+
         // POST: api/GPIO
         [HttpPost("{id}")]
         public void Post(int id, [FromBody]bool value)
         {
-            var pin1 = Pi.Gpio[id];
-            pin1.PinMode = Unosquare.RaspberryIO.Gpio.GpioPinDriveMode.Output;
-            pin1.Write(value);
+            pinsService.SetPinOutputValue(id, value);
         }
 
         [HttpPost("toggle/{id}")]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Unosquare.RaspberryIO;
 
 namespace RestberryPiApi.HostedService
 {
@@ -19,6 +20,10 @@ namespace RestberryPiApi.HostedService
         {
             return Task.CompletedTask;
             //throw new NotImplementedException();
+        }
+
+        private async Task RunAsync()
+        {
         }
     }
 }

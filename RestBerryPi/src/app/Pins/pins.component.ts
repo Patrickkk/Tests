@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-pins',
     templateUrl: './pins.component.html',
+    styleUrls: ['./pins.scss']
     // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PinsComponent implements OnInit {

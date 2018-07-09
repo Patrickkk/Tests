@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RestberryPiApi.HostedService;
+using RestberryPiApi.PinAccess;
 
 namespace RestberryPiApi
 {
@@ -17,7 +19,14 @@ namespace RestberryPiApi
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+#if DEBUG
+                .AddJsonFile($"appsettings.development.json", optional: true)
+#endif
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -28,6 +37,17 @@ namespace RestberryPiApi
             services.AddMvc();
             services.AddCors();
             services.AddSingleton<IHostedService, RestBerryBackgroundService>();
+            services.AddOptions();
+            services.Configure<List<FakePinConfiguration>>(Configuration.GetSection("FakePinConfiguration"));
+
+            if (Configuration.GetSection("FakePinConfiguration").Exists())
+            {
+                services.AddSingleton<IPiPinsService, FakePinsService>();
+            }
+            else
+            {
+                services.AddSingleton<IPiPinsService, UnoSquarePinsService>();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
