@@ -6,6 +6,8 @@
 
 }
 
+
+
 .pin {
     min-width: 300px;
     flex-basis: 50%;
@@ -13,10 +15,21 @@
     background: green;
     display: flex;
     justify-content: flex-end;
+    color: white;
+    font-weight: bold;
+    border-radius:  10px;
+
+    &.default{ background: white;}
+    &.gpio{ background: orange;}
+    &.reserved{ background: gray;}
+    &.threeVolt{ background: yellow;}
+    &.fiveVolt{ background: red;}
+    &.ground{ background: black;}
+    &.spi{ background: purple;}
+    &.i2c{ background: cyan;}
 }
 
 div.pin:nth-child(even) {
-    color: red;
     flex-direction: row-reverse;
     justify-content: flex-end;
 }

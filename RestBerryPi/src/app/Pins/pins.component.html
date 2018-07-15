@@ -1,8 +1,20 @@
 <h1>Pins</h1>
 <p>pins: {{pins.length}}</p>
-<ul *ngFor="let pin of pins">
-    <button (click)=navigateToPinPage(pin) color="primary" mat-raised-button>{{pin.pinNumber}}</button>
-</ul>
+<!-- <ul *ngFor="let pin of pins">
+    <button (click)=navigateToPinPage(pin) color="primary" mat-raised-button>{{pin.pinNumber}}{{pin.name}}</button>
+</ul> -->
+
+<div class="center">
+    <div class="pins">
+        <div *ngFor="let pin of pins" class="pin {{pinClass(pin)}}">
+            <p>{{pin.pinNumber}}{{pin.name}}</p>
+            <p>{{pin.headerPinNumber}}</p>
+            <p>
+                <mat-icon>flash_on</mat-icon>
+            </p>
+        </div>
+    </div>
+</div>
 
 <div class="center">
     <div class="pins">

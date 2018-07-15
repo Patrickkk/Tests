@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestberryPiApi.PinAccess;
-using Unosquare.RaspberryIO;
-using Unosquare.RaspberryIO.Gpio;
 
 namespace RestberryPiApi.Controllers
 {
@@ -31,7 +29,7 @@ namespace RestberryPiApi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public GpioPin Get(int id)
         {
-            return Pi.Gpio.Pins[id];
+            return pinsService.GetPin(id);
         }
 
         [HttpGet("Read/{id}")]
@@ -50,10 +48,8 @@ namespace RestberryPiApi.Controllers
         [HttpPost("toggle/{id}")]
         public void Toggle(int id)
         {
-            var pin1 = Pi.Gpio[id];
-            var currentvalue = pin1.Read();
-            pin1.PinMode = Unosquare.RaspberryIO.Gpio.GpioPinDriveMode.Output;
-            pin1.Write(!currentvalue);
+            var currentvalue = this.pinsService.Read(id);
+            this.pinsService.SetPinOutputValue(id, !currentvalue);
         }
 
         // PUT: api/GPIO/5

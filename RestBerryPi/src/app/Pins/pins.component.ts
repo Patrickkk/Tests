@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PinsApiService } from './pinsapi.service';
-import { Pin } from './pin';
+import { Pin, GpioPinGroup } from './pin';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ErrorHandler } from '../cross-cutting/ErrorHandler';
 import { Router } from '@angular/router';
@@ -20,6 +20,10 @@ export class PinsComponent implements OnInit {
     navigateToPinPage(pin: Pin) {
         console.log(pin);
         this.router.navigate(['/pin', pin.pinNumber]);
+    }
+
+    pinClass(pin: Pin) {
+        return GpioPinGroup[pin.pinType];
     }
 
     ngOnInit() {

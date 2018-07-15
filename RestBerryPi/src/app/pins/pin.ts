@@ -1,4 +1,5 @@
 export interface Pin {
+    pinType: GpioPinGroup;
     pinNumber?: number;
     wiringPiPinNumber?: number;
     bcmPinNumber?: number;
@@ -23,4 +24,15 @@ export interface Pin {
 
 export interface PhysicalPin extends Pin {
     physicalPinNumber: number;
+}
+
+export enum GpioPinGroup {
+    default,
+    gpio,
+    reserved,
+    threeVolt,
+    fiveVolt,
+    ground,
+    spi,
+    i2c,
 }

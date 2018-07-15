@@ -17,6 +17,7 @@ namespace RestberryPiApi.PinAccess
 
         public bool Read(int pinNumber)
         {
+            SetToReadMode(pinNumber);
             return Pi.Gpio[pinNumber].Read();
         }
 
@@ -45,6 +46,11 @@ namespace RestberryPiApi.PinAccess
                 HeaderPinNumber = pin.HeaderPinNumber,
                 Name = pin.Name
             };
+        }
+
+        public GpioPin GetPin(int id)
+        {
+            return MapUnosquarePin(Pi.Gpio[id]);
         }
     }
 
