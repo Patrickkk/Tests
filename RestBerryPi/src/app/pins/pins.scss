@@ -1,37 +1,35 @@
 .pins{
     display: flex;
     flex-flow: wrap;
+    // align-items: baseline;
     width: 600px;
     margin: auto;
 
-}
+    .pin:nth-child(even) {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
 
+    .pin {
+        min-width: 300px;
+        flex-basis: 50%;
+        flex-shrink: 1;
+        background: green;
+        display: flex;
+        justify-content: flex-end;
+        color: white;
+        font-weight: bold;
+        border-radius:  10px;
 
-
-.pin {
-    min-width: 300px;
-    flex-basis: 50%;
-    flex-shrink: 1;
-    background: green;
-    display: flex;
-    justify-content: flex-end;
-    color: white;
-    font-weight: bold;
-    border-radius:  10px;
-
-    &.default{ background: white;}
-    &.gpio{ background: orange;}
-    &.reserved{ background: gray;}
-    &.threeVolt{ background: yellow;}
-    &.fiveVolt{ background: red;}
-    &.ground{ background: black;}
-    &.spi{ background: purple;}
-    &.i2c{ background: cyan;}
-}
-
-div.pin:nth-child(even) {
-    flex-direction: row-reverse;
-    justify-content: flex-end;
+        &.default{ background: white;}
+        &.gpio{ background: orange;}
+        &.reserved{ background: gray;}
+        &.threeVolt{ background: yellow;}
+        &.fiveVolt{ background: red;}
+        &.ground{ background: black;}
+        &.spi{ background: purple;}
+        &.i2c{ background: cyan;}
+    }
 }
 
 .center{
