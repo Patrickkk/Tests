@@ -1,34 +1,65 @@
 .pins{
     display: flex;
     flex-flow: wrap;
-    // align-items: baseline;
-    width: 600px;
+    max-width: 600px;
     margin: auto;
+    justify-content: flex-end;
+    align-items: center;
 
-    .pin:nth-child(even) {
+    .pin:nth-child(even) a{
         flex-direction: row-reverse;
         justify-content: flex-end;
     }
 
-    .pin {
-        min-width: 300px;
-        flex-basis: 50%;
-        flex-shrink: 1;
-        background: green;
+    .pin:nth-child(even){
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+    .pinNumber{
+        width: 30px;
+        background: gray;
+        border-radius:  10px;
+        margin: 3px;
+        padding: 3px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+
+        p{
+            line-height: 100%;
+            margin:auto;
+        }
+    }
+
+    .pin a{
+        margin: 3px;
+        padding: 3px;
+        width: 100%;
         display: flex;
         justify-content: flex-end;
-        color: white;
-        font-weight: bold;
+        align-items: center;
         border-radius:  10px;
 
         &.default{ background: white;}
         &.gpio{ background: orange;}
         &.reserved{ background: gray;}
-        &.threeVolt{ background: yellow;}
+        &.threeVolt{ background: #c7c701;}
         &.fiveVolt{ background: red;}
         &.ground{ background: black;}
         &.spi{ background: purple;}
         &.i2c{ background: cyan;}
+    }
+    
+    .pin {
+        min-width: 300px;
+        flex-basis: 50%;
+        flex-shrink: 1;
+        display: flex;
+        justify-content: flex-end;
+        color: white;
+        font-weight: bold;
+        border-radius:  10px;
     }
 }
 

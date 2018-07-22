@@ -1,47 +1,28 @@
-<h1>Pins</h1>
-<p>pins: {{pins.length}}</p>
 <!-- <ul *ngFor="let pin of pins">
     <button (click)=navigateToPinPage(pin) color="primary" mat-raised-button>{{pin.pinNumber}}{{pin.name}}</button>
 </ul> -->
 
 <div class="center">
     <div class="pins">
-        <div *ngFor="let pin of pins" class="pin {{pinClass(pin)}}">
-            <p>{{pin.pinNumber}} {{pin.name}} </p>
-            <p>{{pin.headerPinNumber}}</p>
-            <p>
-                <mat-icon>flash_on</mat-icon>
-            </p>
-        </div>
-    </div>
-</div>
+        <div *ngFor="let pin of pins" class="pin ">
+            <div class="pinNumber">
+                <p>{{pin.wiringPinNumber}} </p>
+            </div>
 
-<div class="center">
-    <div class="pins">
-        <div class="pin">
-            <p>1</p>
-            <p>3.3v</p>
-            <mat-icon>flash_on</mat-icon>
-        </div>
-        <div class="pin">
-            <p>2</p>
-            <p>5v</p>
-            <mat-icon>flash_on</mat-icon>
-        </div>
-        <div class="pin">
-            <p>3</p>
-            <p>I2C1 SDA</p>
-            <mat-icon>memory</mat-icon>
-        </div>
-        <div class="pin">
-            <p>4</p>
-            <p>Ground</p>
-            <mat-icon>flash_off</mat-icon>
-        </div>
-        <div class="pin">
-            <p>4</p>
-            <p>Ground</p>
-            <mat-icon>center_focus_strong</mat-icon>
+            <a routerLink="/pin/{{pin.headerPinNumber}}" class="{{pinTypeName(pin)}}">
+                {{pin.name}}
+                <ng-container [ngSwitch]="pinTypeName(pin)">
+                    <mat-icon *ngSwitchCase="'threeVolt'">flash_on</mat-icon>
+                    <mat-icon *ngSwitchCase="'fiveVolt'">flash_on</mat-icon>
+                    <mat-icon *ngSwitchCase="'ground'">center_focus_strong</mat-icon>
+                    <mat-icon *ngSwitchCase="'spi'">memory</mat-icon>
+                    <mat-icon *ngSwitchCase="'i2c'">memory</mat-icon>
+                    <mat-icon *ngSwitchCase="'gpio'">memory</mat-icon>
+                </ng-container>
+            </a>
+            <div class="pinNumber">
+                <p>{{pin.headerPinNumber}} </p>
+            </div>
         </div>
     </div>
 </div>

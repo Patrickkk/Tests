@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Unosquare.RaspberryIO;
@@ -8,34 +7,49 @@ namespace RestberryPiApi.PinAccess
 {
     public class UnoSquarePinsService : IPiPinsService
     {
-        public bool ReadModeAndRead(int pinNumber)
+        private static Unosquare.RaspberryIO.Gpio.GpioPin PhysicalPinOrDefault(int physicalPinNumber)
         {
-            var pin1 = Pi.Gpio[pinNumber];
+            return Pi.Gpio.SingleOrDefault(x => x.HeaderPinNumber == physicalPinNumber);
+        }
+
+        private static Unosquare.RaspberryIO.Gpio.GpioPin PhysicalPin(int physicalPinNumber)
+        {
+            var pin = PhysicalPinOrDefault(physicalPinNumber);
+            if (pin == null)
+            {
+                throw new NonExistingPinException($"No pin with pin number {physicalPinNumber} exsists");
+            }
+            return pin;
+        }
+
+        public bool ReadModeAndRead(int physicalPinNumber)
+        {
+            var pin1 = PhysicalPin(physicalPinNumber);
             pin1.PinMode = Unosquare.RaspberryIO.Gpio.GpioPinDriveMode.Input;
             return pin1.Read();
         }
 
-        public bool Read(int pinNumber)
+        public bool Read(int physicalPinNumber)
         {
-            SetToReadMode(pinNumber);
-            return Pi.Gpio[pinNumber].Read();
+            SetToReadMode(physicalPinNumber);
+            return PhysicalPin(physicalPinNumber).Read();
         }
 
-        public void SetToReadMode(int pinNumber)
+        public void SetToReadMode(int physicalPinNumber)
         {
-            Pi.Gpio[pinNumber].PinMode = Unosquare.RaspberryIO.Gpio.GpioPinDriveMode.Input;
+            PhysicalPin(physicalPinNumber).PinMode = Unosquare.RaspberryIO.Gpio.GpioPinDriveMode.Input;
         }
 
-        public void SetPinOutputValue(int id, bool value)
+        public void SetPinOutputValue(int physicalPinNumber, bool value)
         {
-            var pin1 = Pi.Gpio[id];
+            var pin1 = PhysicalPin(physicalPinNumber);
             pin1.PinMode = Unosquare.RaspberryIO.Gpio.GpioPinDriveMode.Output;
             pin1.Write(value);
         }
 
         public IEnumerable<GpioPin> GetAllPins()
         {
-            return Pi.Gpio.Select(MapUnosquarePin);
+            return Pi.Gpio.Select(MapUnosquarePin).Concat(NonProgrammablePins.All).OrderBy(x => x.PhysicalPinNumber);
         }
 
         private GpioPin MapUnosquarePin(Unosquare.RaspberryIO.Gpio.GpioPin pin)
@@ -43,14 +57,14 @@ namespace RestberryPiApi.PinAccess
             return new GpioPin
             {
                 WiringPinNumber = (int)pin.WiringPiPinNumber,
-                HeaderPinNumber = pin.HeaderPinNumber,
+                PhysicalPinNumber = pin.HeaderPinNumber,
                 Name = pin.Name
             };
         }
 
-        public GpioPin GetPin(int id)
+        public GpioPin GetPin(int physicalPinNumber)
         {
-            return MapUnosquarePin(Pi.Gpio[id]);
+            return MapUnosquarePin(PhysicalPin(physicalPinNumber));
         }
     }
 

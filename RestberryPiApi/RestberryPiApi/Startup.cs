@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Redbus;
 using RestberryPiApi.HostedService;
 using RestberryPiApi.PinAccess;
 
@@ -36,7 +37,10 @@ namespace RestberryPiApi
         {
             services.AddMvc();
             services.AddCors();
-            services.AddSingleton<IHostedService, RestBerryBackgroundService>();
+            services.AddSingleton<ScheduledJob>();
+            services.AddSingleton<SomeJob>();
+            services.AddSingleton<EventBus>();
+            services.AddSingleton<IHostedService, RestBerryBackgroundService>(x => new RestBerryBackgroundService(x));
             services.AddOptions();
             services.Configure<List<FakePinConfiguration>>(Configuration.GetSection("FakePinConfiguration"));
 

@@ -5,24 +5,30 @@ using System.Threading.Tasks;
 
 namespace RestberryPiApi.PinAccess
 {
+    public interface I2cService
+    {
+    }
+
     public interface IPiPinsService
     {
-        void SetToReadMode(int pinNumber);
+        void SetToReadMode(int physicalPinNumber);
 
-        bool Read(int pinNumber);
+        bool Read(int physicalPinNumber);
 
-        bool ReadModeAndRead(int pinNumber);
+        bool ReadModeAndRead(int physicalPinNumber);
 
-        void SetPinOutputValue(int id, bool value);
+        void SetPinOutputValue(int physicalPinNumber, bool value);
 
         IEnumerable<GpioPin> GetAllPins();
 
-        GpioPin GetPin(int id);
+        GpioPin GetPin(int physicalPinNumber);
     }
 
     public class GpioPin
     {
-        public int HeaderPinNumber { get; set; }
+        public int PhysicalPinNumber { get; set; }
+
+        public int HeaderPinNumber { get { return PhysicalPinNumber; } }
 
         public int WiringPinNumber { get; set; }
 

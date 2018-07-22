@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
     selector: 'app-pins',
     templateUrl: './pins.component.html',
     styleUrls: ['./pins.scss']
-    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PinsComponent implements OnInit {
     public pins: Pin[] = [];
@@ -22,15 +21,13 @@ export class PinsComponent implements OnInit {
         this.router.navigate(['/pin', pin.pinNumber]);
     }
 
-    pinClass(pin: Pin) {
+    pinTypeName(pin: Pin) {
         return GpioPinGroup[pin.pinType];
     }
 
     ngOnInit() {
         this.pinsService.getPins().subscribe(pins => {
-            console.log(pins);
             this.pins = pins;
-            console.log(this.pins);
         }, ErrorHandler.HandleError);
     }
 }
