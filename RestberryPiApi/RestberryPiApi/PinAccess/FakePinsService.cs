@@ -60,27 +60,27 @@ namespace RestberryPiApi.PinAccess
             return allPins.Concat(NonProgrammablePins.All).OrderBy(x => x.PhysicalPinNumber);
         }
 
-        public GpioPin GetPin(int id)
+        public GpioPin GetPin(int physicalPinNumber)
         {
-            throw new NotImplementedException();
+            return allPins.Single(x => x.PhysicalPinNumber == physicalPinNumber);
         }
 
-        public bool Read(int pinNumber)
+        public bool Read(int physicalPinNumber)
         {
-            return this.pinValueProviders[pinNumber].Read();
+            return this.pinValueProviders[physicalPinNumber].Read();
         }
 
-        public bool ReadModeAndRead(int pinNumber)
+        public bool ReadModeAndRead(int physicalPinNumber)
         {
-            return this.pinValueProviders[pinNumber].Read();
+            return this.pinValueProviders[physicalPinNumber].Read();
         }
 
-        public void SetPinOutputValue(int id, bool value)
+        public void SetPinOutputValue(int physicalPinNumber, bool value)
         {
-            Console.WriteLine($"set pin {id} to {value}");
+            Console.WriteLine($"set pin {physicalPinNumber} to {value}");
         }
 
-        public void SetToReadMode(int pinNumber)
+        public void SetToReadMode(int physicalPinNumber)
         {
             // no pins to set since this is all fake.
         }

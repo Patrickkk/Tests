@@ -1,6 +1,24 @@
-<h1>{{pin?.name}}</h1>
-<ul *ngFor="let capability of pin?.capabilities">
-    <li>{{capability}}</li>
-</ul>
+<h1>
+    <ng-container [ngSwitch]="pinTypeName">
+        <mat-icon *ngSwitchCase="'threeVolt'">flash_on</mat-icon>
+        <mat-icon *ngSwitchCase="'fiveVolt'">flash_on</mat-icon>
+        <mat-icon *ngSwitchCase="'ground'">center_focus_strong</mat-icon>
+        <mat-icon *ngSwitchCase="'spi'">memory</mat-icon>
+        <mat-icon *ngSwitchCase="'i2c'">memory</mat-icon>
+        <mat-icon *ngSwitchCase="'gpio'">memory</mat-icon>
+    </ng-container>
+    {{pin?.name}}
+</h1>
+{{pinTypeName}} {{pin?.pinType}}
 
-<button (click)="toggle()" color="primary" mat-raised-button>toggle</button>
+
+<ng-container [ngSwitch]="pinTypeName">
+    <mat-icon *ngSwitchCase="'threeVolt'">flash_on</mat-icon>
+    <mat-icon *ngSwitchCase="'fiveVolt'">flash_on</mat-icon>
+    <mat-icon *ngSwitchCase="'ground'">center_focus_strong</mat-icon>
+    <mat-icon *ngSwitchCase="'spi'">memory</mat-icon>
+    <mat-icon *ngSwitchCase="'i2c'">memory</mat-icon>
+    <div *ngSwitchCase="'gpio'">
+        <button (click)="toggle()" color="primary" mat-raised-button>toggle</button>
+    </div>
+</ng-container>
