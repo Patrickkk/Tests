@@ -40,6 +40,7 @@ namespace RestberryPiApi
             services.AddSingleton<ScheduledJob>();
             services.AddSingleton<SomeJob>();
             services.AddSingleton<EventBus>();
+            services.AddSingleton<UnoSquarePinsService>();
             services.AddSingleton<IHostedService, RestBerryBackgroundService>(x => new RestBerryBackgroundService(x));
             services.AddOptions();
             services.Configure<List<FakePinConfiguration>>(Configuration.GetSection("FakePinConfiguration"));

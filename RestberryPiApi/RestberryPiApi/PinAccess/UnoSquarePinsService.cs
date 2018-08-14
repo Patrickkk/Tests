@@ -7,6 +7,15 @@ namespace RestberryPiApi.PinAccess
 {
     public class UnoSquarePinsService : IPiPinsService
     {
+        /// <summary>
+        /// returns all pins. mostly for debugging.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Unosquare.RaspberryIO.Gpio.GpioPin> AllUnosquarePins()
+        {
+            return Pi.Gpio;
+        }
+
         private static Unosquare.RaspberryIO.Gpio.GpioPin PhysicalPinOrDefault(int physicalPinNumber)
         {
             return Pi.Gpio.SingleOrDefault(x => x.HeaderPinNumber == physicalPinNumber);
