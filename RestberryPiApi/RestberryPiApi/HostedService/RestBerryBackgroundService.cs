@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentScheduler;
-using Microsoft.Extensions.Hosting;
-using Unosquare.RaspberryIO;
-using RestberryPiApi.PinAccess;
-using Microsoft.Extensions.Configuration;
+﻿using FluentScheduler;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Redbus;
 using Redbus.Events;
+using RestberryPiApi.PinAccess;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RestberryPiApi.HostedService
 {
@@ -38,8 +34,21 @@ namespace RestberryPiApi.HostedService
             {
                 var triggerConfig = new ScheduledIntervalTriggerConfiguration
                 {
-                    IntervalInMilliseconds = 5000,
-                    EventName = "FiveSencondsInterval"
+                    IntervalInMilliseconds = TimeSpan.FromSeconds(5).Milliseconds,
+                    Name = "MoistureMeasureInterval"
+                };
+
+                var actionConfig = new ActionConfig
+                {
+                    Name = "MeasureMoisture",
+                    Trigger = new EventTrigger
+                    {
+                        TriggeringEventName = "MoistureMeasureInterval"
+                    },
+                    Action = new ReadI2CPinActionConfig
+                    {
+                        Name = "MoistureMeasurement"
+                    }
                 };
 
                 var uiToggleTriggerConfig = new UiToggleTriggerConfiguration
@@ -160,7 +169,7 @@ namespace RestberryPiApi.HostedService
     {
         public int IntervalInMilliseconds { get; set; }
 
-        public string EventName { get; set; }
+        public string Name { get; set; }
 
         public string FullEventName { get; set; }
     }

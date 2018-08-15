@@ -16,6 +16,16 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "Kestrel": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\dotnet\\dotnet.exe",
+      "commandLineArgs": "watch run",
+      "workingDirectory": "$(ProjectDir)",
+      "launchUrl": "http://localhost:55323/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
     "RestberryPiApi": {
       "commandName": "Project",
       "launchBrowser": true,
