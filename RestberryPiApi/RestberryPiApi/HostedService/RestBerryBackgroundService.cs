@@ -3,8 +3,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Redbus;
 using Redbus.Events;
+using RestberryPiApi.HostedService.Ifttt;
 using RestberryPiApi.PinAccess;
 using System;
+using System.Collections.Generic;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,6 +18,8 @@ namespace RestberryPiApi.HostedService
     {
         private readonly Registry registry;
         private readonly IServiceProvider services;
+        private EventBus eventBus;
+        private IftttService iftttService;
 
         public RestBerryBackgroundService(IServiceProvider services)
         {
@@ -38,7 +44,7 @@ namespace RestberryPiApi.HostedService
                     Name = "MoistureMeasureInterval"
                 };
 
-                var actionConfig = new ActionConfig
+                var actionConfig = new TriggeredActionConfig
                 {
                     Name = "MeasureMoisture",
                     Trigger = new EventTrigger
@@ -47,23 +53,31 @@ namespace RestberryPiApi.HostedService
                     },
                     Action = new ReadI2CPinActionConfig
                     {
-                        Name = "MoistureMeasurement"
+                        Name = "MoistureMeasurement",
+                        I2cAddress = 123
                     }
                 };
 
-                var uiToggleTriggerConfig = new UiToggleTriggerConfiguration
-                {
-                    EventName = "FiveSencondsInterval",
-                };
+                //var uiToggleTriggerConfig = new UiToggleTriggerConfiguration
+                //{
+                //    EventName = "FiveSencondsInterval",
+                //};
 
-                this.services.GetRequiredService<ReadPinAction>();
+                this.eventBus = this.services.GetRequiredService<EventBus>();
+                this.iftttService = this.services.GetRequiredService<IftttService>();
+                eventBus.Subscribe<IftttConfigurationChange>(x => { this.iftttService.StartAndStopPreviousConfiguration(new ConfigurationWithCancellationToken(x.NewConfiguration)); });
+
+                var configuation = new List<object> { triggerConfig, actionConfig };
+                var message = new IftttConfigurationChange { NewConfiguration = configuation };
+                this.eventBus.Publish(message);
 
                 registry.Schedule(() =>
                 {
                     try
                     {
-                        var job = this.services.GetRequiredService<SomeJob>();
-                        job.Execute();
+                        Console.WriteLine("LALAL");
+                        //var job = this.services.GetRequiredService<SomeJob>();
+                        //job.Execute();
                     }
                     catch (Exception)
                     {
@@ -86,20 +100,19 @@ namespace RestberryPiApi.HostedService
         }
     }
 
-    public class SomeJob
+    public class IfffConfigurationSource
     {
-        private readonly IPiPinsService pins;
-
-        public SomeJob(IPiPinsService pins)
+        public static IObservable<IEnumerable<object>> FromEventBus(EventBus eventBus)
         {
-            this.pins = pins;
-        }
+            var subject = new Subject<IEnumerable<object>>();
 
-        public void Execute()
-        {
-            var pinnumber = 1;
-            Console.WriteLine($"reading pin {pinnumber} value: {pins.ReadModeAndRead(pinnumber)}");
+            return subject;
         }
+    }
+
+    public class IftttConfigurationChange : EventBase
+    {
+        public IEnumerable<object> NewConfiguration { get; set; }
     }
 
     public interface IEventAction
@@ -163,18 +176,5 @@ namespace RestberryPiApi.HostedService
         public string Name { get; set; }
 
         public dynamic Value { get; set; }
-    }
-
-    public class ScheduledIntervalTriggerConfiguration
-    {
-        public int IntervalInMilliseconds { get; set; }
-
-        public string Name { get; set; }
-
-        public string FullEventName { get; set; }
-    }
-
-    public class NamedEventEmitterConfiguration
-    {
     }
 }

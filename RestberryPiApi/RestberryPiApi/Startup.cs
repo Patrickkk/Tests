@@ -5,9 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Redbus;
 using RestberryPiApi.HostedService;
+using RestberryPiApi.HostedService.Ifttt;
 using RestberryPiApi.PinAccess;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace RestberryPiApi
 {
@@ -33,8 +35,16 @@ namespace RestberryPiApi
             services.AddMvc();
             services.AddCors();
             services.AddSingleton<ScheduledJob>();
-            services.AddSingleton<SomeJob>();
+            typeof(IftttService).Assembly.GetTypes()
+                .Where(x => !x.IsAbstract && !x.IsInterface)
+                .Where(mytype => mytype.GetInterfaces()
+                .Contains(typeof(IIfttConfigHandler))).ToList()
+                .ForEach(x => { services.AddSingleton(x); });
+
             services.AddSingleton<EventBus>();
+            services.AddSingleton<IftttService>();
+            services.AddSingleton<EventBus>();
+
             services.AddSingleton<UnoSquarePinsService>();
             services.AddSingleton<IHostedService, RestBerryBackgroundService>(x => new RestBerryBackgroundService(x));
             services.AddOptions();

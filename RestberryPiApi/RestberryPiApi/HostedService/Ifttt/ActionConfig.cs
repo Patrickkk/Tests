@@ -1,6 +1,6 @@
 ﻿namespace RestberryPiApi.HostedService
 {
-    internal class ActionConfig
+    internal class TriggeredActionConfig
     {
         public string Name { get; set; }
         public EventTrigger Trigger { get; set; }
